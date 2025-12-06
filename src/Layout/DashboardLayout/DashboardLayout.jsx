@@ -1,235 +1,189 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link, NavLink, Outlet } from "react-router";
 import {
-  FaParachuteBox,
-  FaRedRiver,
-  FaTasks,
+  FaBars,
+  FaTimes,
+  FaHome,
   FaUser,
   FaUsers,
+  FaMotorcycle,
+  FaTasks,
+  FaParachuteBox,
+  FaSignOutAlt
 } from "react-icons/fa";
-import { FaMotorcycle } from "react-icons/fa6";
 import {
-  MdAssignmentTurnedIn,
   MdOutlinePayment,
   MdOutlineTaskAlt,
+  MdAssignmentTurnedIn,
+  MdDashboard
 } from "react-icons/md";
-import { Link, NavLink, Outlet } from "react-router";
 import useRole from "../../Hooks/useRole";
-
+import useAuth from "../../Hooks/useAuth";
+import logo from '../../assets/logo.png';
 
 const DashBoardLayout = () => {
   const { role } = useRole();
+  const { user, logOut } = useAuth();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+  const closeSidebar = () => setIsSidebarOpen(false);
+
+  const navLinkClasses = ({ isActive }) =>
+    `flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 font-medium ${isActive
+      ? "bg-orange-600 text-white shadow-md shadow-orange-200"
+      : "text-gray-600 hover:bg-orange-50 hover:text-orange-600"
+    }`;
+
   return (
-    <div>
-      <div className="drawer lg:drawer-open">
-        <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
-        <div className="drawer-content">
-          {/* Navbar */}
-          <nav className="navbar w-full bg-gray-500">
-            <label
-              htmlFor="my-drawer-4"
-              aria-label="open sidebar"
-              className="btn btn-square btn-ghost"
-            >
-              {/* Sidebar toggle icon */}
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                strokeLinejoin="round"
-                strokeLinecap="round"
-                strokeWidth="2"
-                fill="none"
-                stroke="currentColor"
-                className="my-1.5 inline-block size-4"
-              >
-                <path d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"></path>
-                <path d="M9 4v16"></path>
-                <path d="M14 10l2 2l-2 2"></path>
-              </svg>
-            </label>
-            <div className="px-4 text-primary font-bold text-xl">
-              Zap Shift Dashboard
+    <div className="min-h-screen bg-gray-50 flex font-sans">
+      {/* Mobile Sidebar Overlay */}
+      {isSidebarOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden backdrop-blur-sm transition-opacity"
+          onClick={closeSidebar}
+        ></div>
+      )}
+
+      {/* Sidebar */}
+      <aside
+        className={`fixed top-0 left-0 z-50 h-full w-72 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static flex flex-col ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+          }`}
+      >
+        {/* Logo Area */}
+        <div className="h-20 flex items-center px-8 border-b border-gray-100">
+          <Link to="/" className="flex items-center gap-3">
+            <img src={logo} alt="Logo" className="w-10 h-10 rounded-full shadow-sm" />
+            <span className="text-xl font-bold text-gray-800">Chef<span className="text-orange-600">Corner</span></span>
+          </Link>
+          <button onClick={closeSidebar} className="lg:hidden ml-auto text-gray-500 hover:text-orange-600">
+            <FaTimes size={24} />
+          </button>
+        </div>
+
+        {/* Navigation Links */}
+        <div className="flex-1 overflow-y-auto py-6 px-4 space-y-1 custom-scrollbar">
+
+          {/* Common Links */}
+          <p className="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Menu</p>
+          <NavLink to="/dashboard" end className={navLinkClasses} onClick={closeSidebar}>
+            <MdDashboard className="text-xl" />
+            <span>Overview</span>
+          </NavLink>
+
+          {/* User Links */}
+          {role === 'user' && ( // Assuming default is user if not rider/admin, or explicitly check role === 'user'
+            <>
+              <NavLink to="/dashboard/my-parcels" className={navLinkClasses} onClick={closeSidebar}>
+                <FaParachuteBox className="text-xl" />
+                <span>My Parcels</span>
+              </NavLink>
+              <NavLink to="/dashboard/payments-history" className={navLinkClasses} onClick={closeSidebar}>
+                <MdOutlinePayment className="text-xl" />
+                <span>Payment History</span>
+              </NavLink>
+            </>
+          )}
+
+
+          {/* Rider Links */}
+          {role === "rider" && (
+            <>
+              <p className="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mt-6 mb-2">Rider Zone</p>
+              <NavLink to="/dashboard/assigned-deliveries" className={navLinkClasses} onClick={closeSidebar}>
+                <FaTasks className="text-xl" />
+                <span>Assigned Deliveries</span>
+              </NavLink>
+              <NavLink to="/dashboard/completed-deliveries" className={navLinkClasses} onClick={closeSidebar}>
+                <MdOutlineTaskAlt className="text-xl" />
+                <span>Completed Deliveries</span>
+              </NavLink>
+            </>
+          )}
+
+          {/* Admin Links */}
+          {role === "admin" && (
+            <>
+              <p className="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mt-6 mb-2">Admin Panel</p>
+              <NavLink to="/dashboard/approve-riders" className={navLinkClasses} onClick={closeSidebar}>
+                <FaMotorcycle className="text-xl" />
+                <span>Approve Riders</span>
+              </NavLink>
+              <NavLink to="/dashboard/assign-riders" className={navLinkClasses} onClick={closeSidebar}>
+                <MdAssignmentTurnedIn className="text-xl" />
+                <span>Assign Riders</span>
+              </NavLink>
+              <NavLink to="/dashboard/users-management" className={navLinkClasses} onClick={closeSidebar}>
+                <FaUsers className="text-xl" />
+                <span>Users Management</span>
+              </NavLink>
+            </>
+          )}
+
+          <div className="my-6 border-t border-gray-100"></div>
+
+          {/* Home Link */}
+          <NavLink to="/" className={navLinkClasses} onClick={closeSidebar}>
+            <FaHome className="text-xl" />
+            <span>Home</span>
+          </NavLink>
+        </div>
+
+        {/* User Profile / Logout (Bottom) */}
+        <div className="p-4 border-t border-gray-100 bg-gray-50/50">
+          <div className="flex items-center gap-3 mb-4 px-2">
+            <img
+              src={user?.photoURL || "https://i.ibb.co/1Jgq0jZ/user.png"}
+              alt="Profile"
+              className="w-10 h-10 rounded-full border-2 border-white shadow-sm"
+            />
+            <div className="overflow-hidden">
+              <h4 className="text-sm font-bold text-gray-800 truncate">{user?.displayName || "User"}</h4>
+              <span className="text-xs text-orange-600 bg-orange-100 px-2 py-0.5 rounded-full capitalize">{role}</span>
             </div>
-          </nav>
-          {/* Page content here */}
+          </div>
+          <button
+            onClick={() => { logOut(); }}
+            className="w-full flex items-center justify-center gap-2 bg-white border border-red-100 text-red-500 py-2.5 rounded-xl hover:bg-red-50 transition-colors font-medium text-sm"
+          >
+            <FaSignOutAlt />
+            <span>Log Out</span>
+          </button>
+        </div>
+      </aside>
+
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col min-h-screen overflow-hidden">
+        {/* Mobile Header */}
+        <header className="lg:hidden h-16 bg-white shadow-sm flex items-center justify-between px-4 z-30 sticky top-0">
+          <div className="flex items-center gap-3">
+            <button onClick={toggleSidebar} className="text-gray-600 hover:text-orange-600 p-1">
+              <FaBars size={24} />
+            </button>
+            <span className="font-bold text-lg text-gray-800">Dashboard</span>
+          </div>
+          <Link to="/">
+            <img src={logo} alt="Logo" className="w-8 h-8 rounded-full" />
+          </Link>
+        </header>
+
+        {/* Content Area */}
+        <main className="flex-1 overflow-x-hidden overflow-y-auto p-4 md:p-8">
           <div className="max-w-7xl mx-auto">
+            {/* Breadcrumb / Title (Optional, visible on Desktop) */}
+            <div className="hidden lg:flex items-center justify-between mb-8">
+              <div>
+                <h1 className="text-2xl font-bold text-gray-800">Welcome Back, {user?.displayName}!</h1>
+                <p className="text-gray-500 text-sm mt-1">Here's what's happening with your account today.</p>
+              </div>
+              <div className="text-sm text-gray-400">
+                {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+              </div>
+            </div>
+
             <Outlet />
           </div>
-          {/* <div className="p-4">Page Content</div> */}
-        </div>
-
-        <div className="drawer-side is-drawer-close:overflow-visible">
-          <label
-            htmlFor="my-drawer-4"
-            aria-label="close sidebar"
-            className="drawer-overlay"
-          ></label>
-          <div className="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64">
-            {/* Sidebar content here */}
-            <ul className="menu w-full grow">
-              {/* List item */}
-              <li>
-                {/* <Link to={"/"}>
-                  {" "}
-                  <img src={Logo} alt="" className="w-12" />
-                </Link> */}
-              </li>
-              <li>
-                <Link
-                  to={"/dashboard"}
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="Homepage"
-                >
-                  {/* Home icon */}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                    fill="none"
-                    stroke="currentColor"
-                    className="my-1.5 inline-block size-4"
-                  >
-                    <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"></path>
-                    <path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                  </svg>
-                  <span className="is-drawer-close:hidden">Homepage</span>
-                </Link>
-              </li>
-
-              {/* our dashboard link */}
-
-              <li>
-                <NavLink
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="MyParcels"
-                  to={"/dashboard/my-parcels"}
-                >
-                  {" "}
-                  <FaParachuteBox size={20} color="" />
-                  <span className="is-drawer-close:hidden">My Parcels</span>
-                </NavLink>
-              </li>
-              <li>
-                <NavLink
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="MyParcels"
-                  to={"/dashboard/payments-history"}
-                >
-                  {" "}
-                  <MdOutlinePayment size={20} color="" />
-                  <span className="is-drawer-close:hidden">
-                    Payments History
-                  </span>
-                </NavLink>
-              </li>
-
-              {/* rider links */}
-
-              {role === "rider" && (
-                <>
-                  <li>
-                    <NavLink
-                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                      data-tip="Assigned Deliveries"
-                      to={"/dashboard/assigned-deliveries"}
-                    >
-                      {" "}
-                      <FaTasks size={20} color="" />
-                      <span className="is-drawer-close:hidden">
-                        Assigned Deliveries
-                      </span>
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                      data-tip="Completed Deliveries"
-                      to={"/dashboard/completed-deliveries"}
-                    >
-                      {" "}
-                      <MdOutlineTaskAlt size={20} color="" />
-                      <span className="is-drawer-close:hidden">
-                        Completed Deliveries
-                      </span>
-                    </NavLink>
-                  </li>
-                </>
-              )}
-
-              {/* admin only links */}
-              {role === "admin" && (
-                <>
-                  <li>
-                    <NavLink
-                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                      data-tip="Approve Riders"
-                      to={"/dashboard/approve-riders"}
-                    >
-                      {" "}
-                      <FaMotorcycle size={20} color="" />
-                      <span className="is-drawer-close:hidden">
-                        Approve Riders
-                      </span>
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                      data-tip="Assign Riders"
-                      to={"/dashboard/assign-riders"}
-                    >
-                      {" "}
-                      <MdAssignmentTurnedIn size={20} color="" />
-                      <span className="is-drawer-close:hidden">
-                        Assign Rider
-                      </span>
-                    </NavLink>
-                  </li>
-                  <li>
-                    <NavLink
-                      className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                      data-tip="Users Management"
-                      to={"/dashboard/users-management"}
-                    >
-                      {" "}
-                      <FaUsers size={20} color="" />
-                      <span className="is-drawer-close:hidden">
-                        Users Management
-                      </span>
-                    </NavLink>
-                  </li>
-                </>
-              )}
-
-              {/* List item */}
-              <li>
-                <button
-                  className="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                  data-tip="Settings"
-                >
-                  {/* Settings icon */}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    strokeLinejoin="round"
-                    strokeLinecap="round"
-                    strokeWidth="2"
-                    fill="none"
-                    stroke="currentColor"
-                    className="my-1.5 inline-block size-4"
-                  >
-                    <path d="M20 7h-9"></path>
-                    <path d="M14 17H5"></path>
-                    <circle cx="17" cy="17" r="3"></circle>
-                    <circle cx="7" cy="7" r="3"></circle>
-                  </svg>
-                  <span className="is-drawer-close:hidden">Settings</span>
-                </button>
-              </li>
-            </ul>
-          </div>
-        </div>
+        </main>
       </div>
     </div>
   );

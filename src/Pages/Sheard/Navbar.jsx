@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router";
 import useAuth from "../../Hooks/useAuth";
+import useRole from "../../Hooks/useRole";
 import logo from '../../assets/logo.png';
 import { FaUserCircle, FaSignOutAlt, FaTachometerAlt, FaBars, FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
+  const { role, status } = useRole();
   const [scrolled, setScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
@@ -29,7 +31,7 @@ const Navbar = () => {
   const handleLogOut = () => {
     logOut()
       .then((result) => {
-        console.log("Logged out successfully");
+        console.log("Logged out successfully", result);
       })
       .catch((err) => {
         console.log(err);
@@ -57,8 +59,8 @@ const Navbar = () => {
   return (
     <div
       className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled
-          ? "bg-white/90 backdrop-blur-md shadow-lg py-2"
-          : "bg-transparent py-4"
+        ? "bg-white/90 backdrop-blur-md shadow-lg py-2"
+        : "bg-transparent py-4"
         }`}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
@@ -96,7 +98,7 @@ const Navbar = () => {
                 <div className="w-10 rounded-full">
                   <img
                     referrerPolicy="no-referrer"
-                    src={user?.photoURL || "https://i.ibb.co/1Jgq0jZ/user.png"} 
+                    src={user?.photoURL || "https://i.ibb.co/1Jgq0jZ/user.png"}
                     alt="User Profile"
                   />
                 </div>
@@ -105,6 +107,14 @@ const Navbar = () => {
                 tabIndex={0}
                 className="mt-3 z-[1] p-2 shadow-xl menu menu-sm dropdown-content bg-base-100 rounded-box w-52 border border-gray-100"
               >
+                <li className="mb-2 px-2">
+                  <div className="flex flex-col items-start gap-1 p-0 hover:bg-transparent cursor-default">
+                    <span className="font-bold text-gray-800">{user?.displayName}</span>
+                    <span className={`text-xs px-2 py-0.5 rounded-full ${status === 'active' ? 'bg-green-100 text-green-600' : 'bg-red-100 text-red-600'}`}>
+                      {status === 'active' ? 'Active' : 'Inactive'}
+                    </span>
+                  </div>
+                </li>
                 <li>
                   <Link to="/dashboard" className="flex items-center gap-2 py-2 text-gray-700 hover:text-orange-600">
                     <FaTachometerAlt /> Dashboard
