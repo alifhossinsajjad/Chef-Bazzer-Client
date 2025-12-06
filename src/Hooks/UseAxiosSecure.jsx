@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { useEffect } from "react";
 
 const axiosSecure = axios.create({
-  baseURL: "http://localhost:5173/",
+  baseURL: "http://localhost:3000/",
 });
 
 const UseAxiosSecure = () => {
@@ -14,7 +14,7 @@ const UseAxiosSecure = () => {
 
   useEffect(() => {
     const reqInterceptor = axiosSecure.interceptors.request.use((config) => {
-      config.headers.Authorization = `Barer ${user?.accessToken}`;
+      config.headers.Authorization = `Bearer ${user?.accessToken}`;
       return config;
     });
 
@@ -25,7 +25,7 @@ const UseAxiosSecure = () => {
         return response;
       },
       async (error) => {
-        const statusCode = error.status;
+        const statusCode = error.response?.status;
         if (statusCode === 401 || statusCode === 403) {
           logOut().then(() => {
             navigate("/login");
@@ -40,7 +40,7 @@ const UseAxiosSecure = () => {
     };
   }, [user, logOut, navigate]);
 
-  return axiosSecure
+  return axiosSecure;
 };
 
 export default UseAxiosSecure;
