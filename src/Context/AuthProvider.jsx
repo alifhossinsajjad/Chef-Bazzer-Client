@@ -9,7 +9,7 @@ import { Children } from "react";
 const googleProvider = new GoogleAuthProvider();
 
 
-const AuthProvider = ({Children}) => {
+const AuthProvider = ({children}) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -58,11 +58,11 @@ const authInfo = {
     signInUser,
     signInGoogle,
     logOut,
-    updateProfile,
+    updateUserProfile,
 }
 
 
-  return <AuthContext.Provider value={Children}>{Children}</AuthContext.Provider>
+  return <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>
 };
 
 export default AuthProvider;
