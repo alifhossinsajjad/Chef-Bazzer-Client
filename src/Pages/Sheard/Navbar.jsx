@@ -3,7 +3,6 @@ import { Link, NavLink } from "react-router";
 
 import useAuth from "../../Hooks/useAuth";
 
-
 const Navbar = () => {
   const { user, logOut } = useAuth();
 
@@ -20,24 +19,24 @@ const Navbar = () => {
   const links = (
     <>
       <li>
-        <NavLink to={"/"}>Services</NavLink>
+        <NavLink to={"/"}>Home</NavLink>
       </li>
 
       <li>
-        <NavLink to={"/send-parcel"}>Send Parcel</NavLink>
+        <NavLink to={"/meals"}>Meals</NavLink>
       </li>
-      <li>
+      {/* <li>
         <NavLink to={"/coverage"}>Coverage Areas</NavLink>
       </li>
       <li>
         <NavLink to={"/rider"}>Be A Rider</NavLink>
-      </li>
+      </li> */}
 
       {user && (
         <>
-          <li>
+          {/* <li>
             <NavLink to={"/dashboard/my-parcels"}>My Parcels</NavLink>
-          </li>
+          </li> */}
           <li>
             <NavLink to={"/dashboard"}>DashBoard</NavLink>
           </li>
@@ -78,21 +77,20 @@ const Navbar = () => {
               {links}
             </ul>
           </div>
-         
         </div>
         <div className="navbar-center hidden lg:flex cursor-pointer gap-5">
           <ul className="menu menu-horizontal px-1">{links}</ul>
-          <div className='hidden md:block'>
-                    {/* Avatar */}
-                    <img
-                      className='rounded-full'
-                      referrerPolicy='no-referrer'
-                      src={user && user.photoURL ? user.photoURL : name}
-                      alt='profile'
-                      height='30'
-                      width='30'
-                    />
-                  </div>
+          <div className="hidden md:block">
+            {/* Avatar */}
+            <img
+              className="rounded-full"
+              referrerPolicy="no-referrer"
+              src={user && user.photoURL ? user.photoURL : name}
+              alt="profile"
+              height="30"
+              width="30"
+            />
+          </div>
         </div>
         <div className="navbar-end ">
           {user ? (

@@ -1,6 +1,9 @@
 import React from 'react';
+import useAuth from '../Hooks/useAuth';
 
-const AdminRoute = () => {
+const AdminRoute = ({children}) => {
+    const {loading} = useAuth()
+    
     return (
         <div>
             

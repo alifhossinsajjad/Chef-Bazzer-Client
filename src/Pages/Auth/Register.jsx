@@ -250,12 +250,7 @@ const Register = () => {
                   >
                     <FaGoogle /> Continue with Google
                   </button>
-                  <button
-                    type="button"
-                    className="btn btn-outline w-full btn-sm lg:btn-md"
-                  >
-                    Continue with Facebook
-                  </button>
+                  
                 </div>
               </div>
             </div>
