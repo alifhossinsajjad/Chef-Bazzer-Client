@@ -6,17 +6,17 @@ import MealCard from "../../Components/MealCard/MealCard";
 
 const Meals = () => {
   const axiosSecure = useAxiosSecure();
-  const [search, setSearch] = useState(""); // Input value
-  const [debouncedSearch, setDebouncedSearch] = useState(""); // Value for API
+  const [search, setSearch] = useState(""); 
+  const [debouncedSearch, setDebouncedSearch] = useState(""); 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 9;
 
-  // Debounce effect
+
   React.useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearch(search);
-      setCurrentPage(1); // Reset page when search actually changes
-    }, 1000); // 600ms delay
+      setCurrentPage(1); 
+    }, 2000);
 
     return () => {
       clearTimeout(handler);
@@ -28,7 +28,7 @@ const Meals = () => {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["meals", debouncedSearch, currentPage], // Use debounced value
+    queryKey: ["meals", debouncedSearch, currentPage], 
     queryFn: async () => {
       const res = await axiosSecure.get(
         `/meals?page=${currentPage}&limit=${itemsPerPage}&search=${debouncedSearch}`

@@ -12,6 +12,7 @@ import Meals from "../Pages/Meals/Meals";
 import PrivetRoute from "./PrivetRoute";
 import DashBoardLayout from "../Layout/DashboardLayout/DashboardLayout";
 import DashboardHome from "../Pages/Dashboard/DashboardHome/DashboardHome";
+import MealsDetails from "../Pages/MealsDetails/MealsDetails";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,14 @@ const router = createBrowserRouter([
       {
         path: "/meals",
         Component: Meals,
+      },
+      {
+        path: "/meals-details/:id",
+        element: (
+          <PrivetRoute>
+            <MealsDetails />
+          </PrivetRoute>
+        ),
       },
     ],
   },
@@ -50,15 +59,13 @@ const router = createBrowserRouter([
         <DashBoardLayout />
       </PrivetRoute>
     ),
-    children : [
+    children: [
       {
-        index : true ,
-        Component : DashboardHome,
+        index: true,
+        Component: DashboardHome,
       },
-      {
-        
-      }
-    ]
+      {},
+    ],
   },
 ]);
 
