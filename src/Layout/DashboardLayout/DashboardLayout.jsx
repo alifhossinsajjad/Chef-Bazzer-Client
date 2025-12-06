@@ -13,8 +13,8 @@ import {
   MdOutlineTaskAlt,
 } from "react-icons/md";
 import { Link, NavLink, Outlet } from "react-router";
-import useRole from "../hooks/useRole";
-import Logo from "../assets/logo.png";
+import useRole from "../../Hooks/useRole";
+
 
 const DashBoardLayout = () => {
   const { role } = useRole();
@@ -24,7 +24,7 @@ const DashBoardLayout = () => {
         <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content">
           {/* Navbar */}
-          <nav className="navbar w-full bg-secondary/70">
+          <nav className="navbar w-full bg-gray-500">
             <label
               htmlFor="my-drawer-4"
               aria-label="open sidebar"
@@ -68,10 +68,10 @@ const DashBoardLayout = () => {
             <ul className="menu w-full grow">
               {/* List item */}
               <li>
-                <Link to={"/"}>
+                {/* <Link to={"/"}>
                   {" "}
                   <img src={Logo} alt="" className="w-12" />
-                </Link>
+                </Link> */}
               </li>
               <li>
                 <Link
