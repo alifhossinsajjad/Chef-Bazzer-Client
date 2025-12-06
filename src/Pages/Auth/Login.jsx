@@ -1,11 +1,8 @@
 import { useForm } from "react-hook-form";
-
-import { Link, useNavigate } from "react-router";
-import { useLocation } from "react-router";
-
+import { Link, useNavigate, useLocation } from "react-router";
 import { Bounce, toast } from "react-toastify";
 import useAuth from "../../Hooks/useAuth";
-import UseAxiosSecure from "../../Hooks/UseAxiosSecure";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
 
 const Login = () => {
   const {
@@ -14,19 +11,16 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const { signInUser, signInGoogle } = useAuth();
-
+  const { signInUser } = useAuth();
   const location = useLocation();
-
   const navigate = useNavigate();
-
-  const axiosSecure = UseAxiosSecure();
+  const axiosSecure = useAxiosSecure();
 
   const handleLogin = (data) => {
     signInUser(data.email, data.password)
       .then((result) => {
-        console.log(result.user);
-        navigate("/");
+        // console.log(result.user);
+        navigate(location.state || "/");
         toast.success(`Sign in successfully`, {
           position: "bottom-right",
           autoClose: 5000,
@@ -39,32 +33,9 @@ const Login = () => {
           transition: Bounce,
         });
       })
-      .catch((error) => console.log(error));
-  };
-
-  const handleSignInwithGoogle = () => {
-    signInGoogle()
-      .then((result) => {
-        console.log(result.user);
-
-        //create user in the data base
-        const userInfo = {
-          displayName: result.user.name,
-          email: result.user.displayName,
-          photoURL: result.user.photoURL,
-        };
-
-        axiosSecure.post("/users", userInfo).then((res) => {
-          if (res.data.insertedId) {
-            console.log("user data stored in database", res.data);
-            navigate(location?.state || "/");
-            toast.success("Sign in successfully");
-          }
-        });
-      })
       .catch((error) => {
         console.log(error);
-        toast.error("Sign in failed");
+        toast.error(error.message);
       });
   };
 
@@ -72,7 +43,7 @@ const Login = () => {
     <div>
       <h3 className="text-5xl font-bold mb-4">Welcome Back</h3>
       <p className="text-secondary text-xl font-bold mb-6">
-        Login with ZapShift
+        Login with LocalChefBazaar
       </p>
 
       <div className="card bg-base-100 w-full shadow-xl p-6">
@@ -93,13 +64,13 @@ const Login = () => {
           <label className="label mt-3">Password</label>
           <input
             type="password"
-            {...register("password", { required: true, minLength: 8 })}
+            {...register("password", { required: true, minLength: 6 })}
             className="input input-bordered w-full"
             placeholder="Password"
           />
           {errors.password && (
             <p className="text-red-500 text-sm mt-1">
-              Password must be at least 8 characters
+              Password must be at least 6 characters
             </p>
           )}
 
@@ -120,19 +91,6 @@ const Login = () => {
             Register
           </Link>
         </p>
-
-        <div className="divider">OR</div>
-
-        <button
-          onClick={handleSignInwithGoogle}
-          className="btn btn-outline w-full"
-        >
-          <img
-            src="https://www.svgrepo.com/show/475656/google-color.svg"
-            className="w-5 h-5 mr-2"
-          />
-          Login with Google
-        </button>
       </div>
     </div>
   );
