@@ -75,6 +75,7 @@ const Navbar = () => {
           Meals
         </NavLink>
       </li>
+     
       <li>
         <NavLink to={"/about"} className={navLinkStyles}>
           About Us
@@ -240,6 +241,7 @@ const Navbar = () => {
                 About Us
               </NavLink>
             </li>
+           
             {user && (
               <li className="w-full text-center">
                 <NavLink

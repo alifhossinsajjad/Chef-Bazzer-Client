@@ -13,6 +13,7 @@ import PrivetRoute from "./PrivetRoute";
 import DashBoardLayout from "../Layout/DashboardLayout/DashboardLayout";
 import DashboardHome from "../Pages/Dashboard/DashboardHome/DashboardHome";
 import MealsDetails from "../Pages/MealsDetails/MealsDetails";
+import Order from "../Pages/Order/Order";
 
 const router = createBrowserRouter([
   {
@@ -33,6 +34,14 @@ const router = createBrowserRouter([
         element: (
           <PrivetRoute>
             <MealsDetails />
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "/order/:id",
+        element: (
+          <PrivetRoute>
+            <Order />
           </PrivetRoute>
         ),
       },
