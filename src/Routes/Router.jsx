@@ -16,6 +16,8 @@ import MealsDetails from "../Pages/MealsDetails/MealsDetails";
 import Order from "../Pages/Order/Order";
 import AdminRoute from "./AdminRoute";
 import UsersManagement from "../Pages/Dashboard/UsersManagement/UsersManagement";
+import MyOrder from "../Pages/Dashboard/MyOrder/MyOrder";
+import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
 
 const router = createBrowserRouter([
   {
@@ -74,6 +76,14 @@ const router = createBrowserRouter([
       {
         index: true,
         Component: DashboardHome,
+      },
+      {
+path : 'my-order',
+Component : MyOrder,
+      },
+      {
+        path : "payment-history",
+        Component : PaymentHistory,
       },
       {
         path: "users-management",

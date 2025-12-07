@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, NavLink, Outlet } from "react-router";
+import { BsBox } from "react-icons/bs";
 import {
   FaBars,
   FaTimes,
@@ -20,8 +21,7 @@ import {
 import useRole from "../../Hooks/useRole";
 import useAuth from "../../Hooks/useAuth";
 import logo from "../../assets/logo.png";
-import { Hamburger } from "lucide";
-
+import { Archive, ArchiveRestore, Hamburger } from "lucide";
 
 const DashBoardLayout = () => {
   const { role } = useRole();
@@ -91,10 +91,10 @@ const DashBoardLayout = () => {
           </NavLink>
 
           {/* User Links */}
-          {role === "user" && ( 
+          {role === "user" && (
             <>
               <NavLink
-                to="/dashboard/my-parcels"
+                to="/dashboard/my-order"
                 className={navLinkClasses}
                 onClick={closeSidebar}
               >
@@ -102,7 +102,7 @@ const DashBoardLayout = () => {
                 <span>My Order</span>
               </NavLink>
               <NavLink
-                to="/dashboard/payments-history"
+                to="/dashboard/payment-history"
                 className={navLinkClasses}
                 onClick={closeSidebar}
               >
@@ -144,11 +144,27 @@ const DashBoardLayout = () => {
                 Admin Panel
               </p>
               <NavLink
+                to="/dashboard/my-order"
+                className={navLinkClasses}
+                onClick={closeSidebar}
+              >
+                <BsBox />
+                <span>My Order</span>
+              </NavLink>
+              <NavLink
+                to="/dashboard/payment-history"
+                className={navLinkClasses}
+                onClick={closeSidebar}
+              >
+                <MdOutlinePayment className="text-xl" />
+                <span>Payment History</span>
+              </NavLink>
+              <NavLink
                 to="/dashboard/approve-chef"
                 className={navLinkClasses}
                 onClick={closeSidebar}
               >
-              <FaHamburger/>
+                <FaHamburger />
                 <span>Approve Chef</span>
               </NavLink>
               <NavLink
