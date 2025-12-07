@@ -6,20 +6,22 @@ import {
   FaHome,
   FaUser,
   FaUsers,
-  FaMotorcycle,
   FaTasks,
   FaParachuteBox,
-  FaSignOutAlt
+  FaSignOutAlt,
+  FaHamburger,
 } from "react-icons/fa";
 import {
   MdOutlinePayment,
   MdOutlineTaskAlt,
   MdAssignmentTurnedIn,
-  MdDashboard
+  MdDashboard,
 } from "react-icons/md";
 import useRole from "../../Hooks/useRole";
 import useAuth from "../../Hooks/useAuth";
-import logo from '../../assets/logo.png';
+import logo from "../../assets/logo.png";
+import { Hamburger } from "lucide";
+
 
 const DashBoardLayout = () => {
   const { role } = useRole();
@@ -30,9 +32,10 @@ const DashBoardLayout = () => {
   const closeSidebar = () => setIsSidebarOpen(false);
 
   const navLinkClasses = ({ isActive }) =>
-    `flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 font-medium ${isActive
-      ? "bg-orange-600 text-white shadow-md shadow-orange-200"
-      : "text-gray-600 hover:bg-orange-50 hover:text-orange-600"
+    `flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-300 font-medium ${
+      isActive
+        ? "bg-orange-600 text-white shadow-md shadow-orange-200"
+        : "text-gray-600 hover:bg-orange-50 hover:text-orange-600"
     }`;
 
   return (
@@ -47,54 +50,87 @@ const DashBoardLayout = () => {
 
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 z-50 h-full w-72 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static flex flex-col ${isSidebarOpen ? "translate-x-0" : "-translate-x-full"
-          }`}
+        className={`fixed top-0 left-0 z-50 h-full w-72 bg-white shadow-2xl transform transition-transform duration-300 ease-in-out lg:translate-x-0 lg:static flex flex-col ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
       >
         {/* Logo Area */}
         <div className="h-20 flex items-center px-8 border-b border-gray-100">
           <Link to="/" className="flex items-center gap-3">
-            <img src={logo} alt="Logo" className="w-10 h-10 rounded-full shadow-sm" />
-            <span className="text-xl font-bold text-gray-800">Chef<span className="text-orange-600">Corner</span></span>
+            <img
+              src={logo}
+              alt="Logo"
+              className="w-10 h-10 rounded-full shadow-sm"
+            />
+            <span className="text-xl font-bold text-gray-800">
+              Chef<span className="text-orange-600">Corner</span>
+            </span>
           </Link>
-          <button onClick={closeSidebar} className="lg:hidden ml-auto text-gray-500 hover:text-orange-600">
+          <button
+            onClick={closeSidebar}
+            className="lg:hidden ml-auto text-gray-500 hover:text-orange-600"
+          >
             <FaTimes size={24} />
           </button>
         </div>
 
         {/* Navigation Links */}
         <div className="flex-1 overflow-y-auto py-6 px-4 space-y-1 custom-scrollbar">
-
           {/* Common Links */}
-          <p className="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Menu</p>
-          <NavLink to="/dashboard" end className={navLinkClasses} onClick={closeSidebar}>
+          <p className="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">
+            Menu
+          </p>
+          <NavLink
+            to="/dashboard"
+            end
+            className={navLinkClasses}
+            onClick={closeSidebar}
+          >
             <MdDashboard className="text-xl" />
             <span>Overview</span>
           </NavLink>
 
           {/* User Links */}
-          {role === 'user' && ( // Assuming default is user if not rider/admin, or explicitly check role === 'user'
+          {role === "user" && ( 
             <>
-              <NavLink to="/dashboard/my-parcels" className={navLinkClasses} onClick={closeSidebar}>
+              <NavLink
+                to="/dashboard/my-parcels"
+                className={navLinkClasses}
+                onClick={closeSidebar}
+              >
                 <FaParachuteBox className="text-xl" />
-                <span>My Parcels</span>
+                <span>My Order</span>
               </NavLink>
-              <NavLink to="/dashboard/payments-history" className={navLinkClasses} onClick={closeSidebar}>
+              <NavLink
+                to="/dashboard/payments-history"
+                className={navLinkClasses}
+                onClick={closeSidebar}
+              >
                 <MdOutlinePayment className="text-xl" />
                 <span>Payment History</span>
               </NavLink>
             </>
           )}
 
-
-          {/* Rider Links */}
-          {role === "rider" && (
+          {/* Chef Links */}
+          {role === "chef" && (
             <>
-              <p className="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mt-6 mb-2">Rider Zone</p>
-              <NavLink to="/dashboard/assigned-deliveries" className={navLinkClasses} onClick={closeSidebar}>
+              <p className="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mt-6 mb-2">
+                Chef Zone
+              </p>
+              <NavLink
+                to="/dashboard/assigned-deliveries"
+                className={navLinkClasses}
+                onClick={closeSidebar}
+              >
                 <FaTasks className="text-xl" />
                 <span>Assigned Deliveries</span>
               </NavLink>
-              <NavLink to="/dashboard/completed-deliveries" className={navLinkClasses} onClick={closeSidebar}>
+              <NavLink
+                to="/dashboard/completed-deliveries"
+                className={navLinkClasses}
+                onClick={closeSidebar}
+              >
                 <MdOutlineTaskAlt className="text-xl" />
                 <span>Completed Deliveries</span>
               </NavLink>
@@ -104,16 +140,30 @@ const DashBoardLayout = () => {
           {/* Admin Links */}
           {role === "admin" && (
             <>
-              <p className="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mt-6 mb-2">Admin Panel</p>
-              <NavLink to="/dashboard/approve-riders" className={navLinkClasses} onClick={closeSidebar}>
-                <FaMotorcycle className="text-xl" />
-                <span>Approve Riders</span>
+              <p className="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mt-6 mb-2">
+                Admin Panel
+              </p>
+              <NavLink
+                to="/dashboard/approve-chef"
+                className={navLinkClasses}
+                onClick={closeSidebar}
+              >
+              <FaHamburger/>
+                <span>Approve Chef</span>
               </NavLink>
-              <NavLink to="/dashboard/assign-riders" className={navLinkClasses} onClick={closeSidebar}>
+              <NavLink
+                to="/dashboard/assign-chef"
+                className={navLinkClasses}
+                onClick={closeSidebar}
+              >
                 <MdAssignmentTurnedIn className="text-xl" />
-                <span>Assign Riders</span>
+                <span>Assign Chef</span>
               </NavLink>
-              <NavLink to="/dashboard/users-management" className={navLinkClasses} onClick={closeSidebar}>
+              <NavLink
+                to="/dashboard/users-management"
+                className={navLinkClasses}
+                onClick={closeSidebar}
+              >
                 <FaUsers className="text-xl" />
                 <span>Users Management</span>
               </NavLink>
@@ -138,12 +188,18 @@ const DashBoardLayout = () => {
               className="w-10 h-10 rounded-full border-2 border-white shadow-sm"
             />
             <div className="overflow-hidden">
-              <h4 className="text-sm font-bold text-gray-800 truncate">{user?.displayName || "User"}</h4>
-              <span className="text-xs text-orange-600 bg-orange-100 px-2 py-0.5 rounded-full capitalize">{role}</span>
+              <h4 className="text-sm font-bold text-gray-800 truncate">
+                {user?.displayName || "User"}
+              </h4>
+              <span className="text-xs text-orange-600 bg-orange-100 px-2 py-0.5 rounded-full capitalize">
+                {role}
+              </span>
             </div>
           </div>
           <button
-            onClick={() => { logOut(); }}
+            onClick={() => {
+              logOut();
+            }}
             className="w-full flex items-center justify-center gap-2 bg-white border border-red-100 text-red-500 py-2.5 rounded-xl hover:bg-red-50 transition-colors font-medium text-sm"
           >
             <FaSignOutAlt />
@@ -157,7 +213,10 @@ const DashBoardLayout = () => {
         {/* Mobile Header */}
         <header className="lg:hidden h-16 bg-white shadow-sm flex items-center justify-between px-4 z-30 sticky top-0">
           <div className="flex items-center gap-3">
-            <button onClick={toggleSidebar} className="text-gray-600 hover:text-orange-600 p-1">
+            <button
+              onClick={toggleSidebar}
+              className="text-gray-600 hover:text-orange-600 p-1"
+            >
               <FaBars size={24} />
             </button>
             <span className="font-bold text-lg text-gray-800">Dashboard</span>
@@ -173,11 +232,20 @@ const DashBoardLayout = () => {
             {/* Breadcrumb / Title (Optional, visible on Desktop) */}
             <div className="hidden lg:flex items-center justify-between mb-8">
               <div>
-                <h1 className="text-2xl font-bold text-gray-800">Welcome Back, {user?.displayName}!</h1>
-                <p className="text-gray-500 text-sm mt-1">Here's what's happening with your account today.</p>
+                <h1 className="text-2xl font-bold text-gray-800">
+                  Welcome Back, {user?.displayName}!
+                </h1>
+                <p className="text-gray-500 text-sm mt-1">
+                  Here's what's happening with your account today.
+                </p>
               </div>
               <div className="text-sm text-gray-400">
-                {new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' })}
+                {new Date().toLocaleDateString("en-US", {
+                  weekday: "long",
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
               </div>
             </div>
 

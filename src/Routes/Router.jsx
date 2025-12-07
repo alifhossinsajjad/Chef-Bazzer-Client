@@ -14,6 +14,8 @@ import DashBoardLayout from "../Layout/DashboardLayout/DashboardLayout";
 import DashboardHome from "../Pages/Dashboard/DashboardHome/DashboardHome";
 import MealsDetails from "../Pages/MealsDetails/MealsDetails";
 import Order from "../Pages/Order/Order";
+import AdminRoute from "./AdminRoute";
+import UsersManagement from "../Pages/Dashboard/UsersManagement/UsersManagement";
 
 const router = createBrowserRouter([
   {
@@ -73,7 +75,14 @@ const router = createBrowserRouter([
         index: true,
         Component: DashboardHome,
       },
-      {},
+      {
+        path: "users-management",
+        element: (
+          <AdminRoute>
+            <UsersManagement />
+          </AdminRoute>
+        ),
+      },
     ],
   },
 ]);
