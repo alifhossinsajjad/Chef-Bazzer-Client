@@ -12,6 +12,7 @@ import {
   FaSun,
   FaMoon,
 } from "react-icons/fa";
+import { FaMessage } from "react-icons/fa6";
 
 const Navbar = () => {
   const { user, logOut } = useAuth();
@@ -58,9 +59,10 @@ const Navbar = () => {
   };
 
   const navLinkStyles = ({ isActive }) =>
-    `text-lg font-medium transition-all duration-300 hover:text-orange-500 ${isActive
-      ? "text-orange-500 font-bold border-b-2 border-orange-500"
-      : "text-gray-700"
+    `text-lg font-medium transition-all duration-300 hover:text-orange-500 ${
+      isActive
+        ? "text-orange-500 font-bold border-b-2 border-orange-500"
+        : "text-gray-700"
     }`;
 
   const links = (
@@ -75,21 +77,29 @@ const Navbar = () => {
           Meals
         </NavLink>
       </li>
-     
+
       <li>
         <NavLink to={"/about"} className={navLinkStyles}>
           About Us
         </NavLink>
       </li>
+      {user && (
+        <li>
+          <NavLink to={"/review"} className={navLinkStyles}>
+            My Review
+          </NavLink>
+        </li>
+      )}
     </>
   );
 
   return (
     <div
-      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${scrolled
-        ? "bg-white/70 backdrop-blur-lg shadow-sm border-b border-white/20 py-2"
-        : "bg-transparent py-4"
-        }`}
+      className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
+        scrolled
+          ? "bg-white/70 backdrop-blur-lg shadow-sm border-b border-white/20 py-2"
+          : "bg-transparent py-4"
+      }`}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo Section */}
@@ -100,8 +110,9 @@ const Navbar = () => {
             className="w-10 h-10 md:w-12 md:h-12 rounded-full shadow-md transform transition group-hover:scale-110"
           />
           <h2
-            className={`text-2xl font-bold tracking-tight ${scrolled ? "text-gray-800" : "text-gray-800"
-              }`}
+            className={`text-2xl font-bold tracking-tight ${
+              scrolled ? "text-gray-800" : "text-gray-800"
+            }`}
           >
             Chef<span className="text-orange-500">Corner</span>
           </h2>
@@ -126,7 +137,7 @@ const Navbar = () => {
           </button>
 
           <Link
-            to={"/rider"}
+            to={"/chef"}
             className="px-5 py-2 rounded-full border border-orange-500 text-orange-600 font-semibold hover:bg-orange-500 hover:text-white transition-all duration-300 shadow-sm"
           >
             Be a Chef
@@ -139,13 +150,13 @@ const Navbar = () => {
                 role="button"
                 className="btn btn-ghost btn-circle avatar border-2 border-orange-200"
               >
-                <div className="w-10 rounded-full">
+                <Link to={"/profile"} className="w-10 rounded-full">
                   <img
                     referrerPolicy="no-referrer"
                     src={user?.photoURL || "https://i.ibb.co/1Jgq0jZ/user.png"}
                     alt="User Profile"
                   />
-                </div>
+                </Link>
               </div>
               <ul
                 tabIndex={0}
@@ -157,15 +168,25 @@ const Navbar = () => {
                       {user?.displayName}
                     </span>
                     <span
-                      className={`text-xs px-2 py-0.5 rounded-full ${status === "active"
-                        ? "bg-green-100 text-green-600"
-                        : "bg-red-100 text-red-600"
-                        }`}
+                      className={`text-xs px-2 py-0.5 rounded-full ${
+                        status === "active"
+                          ? "bg-green-100 text-green-600"
+                          : "bg-red-100 text-red-600"
+                      }`}
                     >
                       {status === "active" ? "Active" : "Inactive"}
                     </span>
                   </div>
                 </li>
+                <li>
+                  <Link
+                    to="/profile"
+                    className="flex items-center gap-2 py-2 text-gray-700 hover:text-orange-600"
+                  >
+                    <FaUserCircle /> Profile
+                  </Link>
+                </li>
+
                 <li>
                   <Link
                     to="/dashboard"
@@ -241,7 +262,17 @@ const Navbar = () => {
                 About Us
               </NavLink>
             </li>
-           
+            {user && (
+              <li>
+                <Link
+                  to="/review"
+                  className="block py-2 text-lg font-medium text-gray-700 hover:text-orange-500"
+                >
+                  My Review
+                </Link>
+              </li>
+            )}
+
             {user && (
               <li className="w-full text-center">
                 <NavLink
@@ -270,7 +301,7 @@ const Navbar = () => {
               )}
             </button>
             <Link
-              to={"/rider"}
+              to={"/chef"}
               className="btn btn-outline border-orange-500 text-orange-600 hover:bg-orange-500 hover:text-white w-full rounded-full"
               onClick={() => setIsMobileMenuOpen(false)}
             >

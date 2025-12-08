@@ -197,21 +197,24 @@ const DashBoardLayout = () => {
 
         {/* User Profile / Logout (Bottom) */}
         <div className="p-4 border-t border-gray-100 bg-gray-50/50">
-          <div className="flex items-center gap-3 mb-4 px-2">
+          <Link
+            to="/profile"
+            className="flex items-center gap-3 mb-4 px-2 hover:bg-gray-100 p-2 rounded-lg transition-colors group"
+          >
             <img
               src={user?.photoURL || "https://i.ibb.co/1Jgq0jZ/user.png"}
               alt="Profile"
-              className="w-10 h-10 rounded-full border-2 border-white shadow-sm"
+              className="w-10 h-10 rounded-full border-2 border-white shadow-sm group-hover:border-orange-200 transition-colors"
             />
             <div className="overflow-hidden">
-              <h4 className="text-sm font-bold text-gray-800 truncate">
+              <h4 className="text-sm font-bold text-gray-800 truncate group-hover:text-orange-600 transition-colors">
                 {user?.displayName || "User"}
               </h4>
               <span className="text-xs text-orange-600 bg-orange-100 px-2 py-0.5 rounded-full capitalize">
                 {role}
               </span>
             </div>
-          </div>
+          </Link>
           <button
             onClick={() => {
               logOut();

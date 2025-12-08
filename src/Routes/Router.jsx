@@ -18,6 +18,11 @@ import AdminRoute from "./AdminRoute";
 import UsersManagement from "../Pages/Dashboard/UsersManagement/UsersManagement";
 import MyOrder from "../Pages/Dashboard/MyOrder/MyOrder";
 import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
+import BeAChef from "../Pages/BeAChef/BeAChef";
+import Profile from "../Pages/Profile/Profile";
+import MyReview from "../Pages/MyReview/MyReview";
+import PaymentSuccess from "../Pages/Dashboard/Payment/PaymentSuccess";
+import PaymentCancled from "../Pages/Dashboard/Payment/PaymentCancled";
 
 const router = createBrowserRouter([
   {
@@ -46,6 +51,30 @@ const router = createBrowserRouter([
         element: (
           <PrivetRoute>
             <Order />
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "/chef",
+        element: (
+          <PrivetRoute>
+            <BeAChef />
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <PrivetRoute>
+            <Profile />
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "/review",
+        element: (
+          <PrivetRoute>
+            <MyReview />
           </PrivetRoute>
         ),
       },
@@ -78,12 +107,20 @@ const router = createBrowserRouter([
         Component: DashboardHome,
       },
       {
-path : 'my-order',
-Component : MyOrder,
+        path: "my-order",
+        Component: MyOrder,
       },
       {
-        path : "payment-history",
-        Component : PaymentHistory,
+        path : 'payment-success',
+        Component : PaymentSuccess,
+      },
+      {
+        path : 'payment-cancled',
+        Component : PaymentCancled,
+      },
+      {
+        path: "payment-history",
+        Component: PaymentHistory,
       },
       {
         path: "users-management",
