@@ -17,22 +17,22 @@ const Profile = () => {
   const { role, status, roleLoading } = useRole();
   const axiosSecure = useAxiosSecure();
 
-  const handleRequest = async (requestType) => {
+  const handleRequest = async (data) => {
     const requestData = {
       userName: user?.displayName,
       userEmail: user?.email,
-      requestType: requestType,
+      requestType: data,
       requestStatus: "pending",
       requestTime: new Date().toISOString(),
     };
 
     try {
-      const res = await axiosSecure.post("/chef", requestData);
+      const res = await axiosSecure.post("/chefs", requestData);
       if (res.data.insertedId) {
         Swal.fire({
           icon: "success",
           title: "Request Sent",
-          text: `Your request to become a ${requestType} has been submitted successfully!`,
+          text: `Your request to become a ${data} has been submitted successfully!`,
         });
       } else {
         Swal.fire({

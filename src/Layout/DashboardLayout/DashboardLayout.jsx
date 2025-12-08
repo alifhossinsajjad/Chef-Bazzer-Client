@@ -165,7 +165,7 @@ const DashBoardLayout = () => {
                 onClick={closeSidebar}
               >
                 <FaHamburger />
-                <span>Approve Chef</span>
+                <span>Request Chef</span>
               </NavLink>
               <NavLink
                 to="/dashboard/assign-chef"

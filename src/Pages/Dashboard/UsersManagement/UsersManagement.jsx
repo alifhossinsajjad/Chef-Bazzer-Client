@@ -18,7 +18,7 @@ const UsersManagement = () => {
     },
   });
 
-const handleMakeAdmin = (user) => {
+  const handleMakeAdmin = (user) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You want to make this user an Admin!",
@@ -47,7 +47,7 @@ const handleMakeAdmin = (user) => {
     });
   };
 
- const handleRemoveAdmin = (user) => {
+  const handleRemoveAdmin = (user) => {
     const roleInfo = { role: "user" };
     axiosSecure.patch(`/users/${user._id}/role`, roleInfo).then((res) => {
       if (res.data.modifiedCount) {
@@ -64,10 +64,8 @@ const handleMakeAdmin = (user) => {
     });
   };
 
-
-
   return (
-      <div>
+    <div>
       <h2 className="text-2xl text-center my-10">
         Manage Users : {users.length}
       </h2>
@@ -95,7 +93,6 @@ const handleMakeAdmin = (user) => {
               <th>Email</th>
               <th>Role</th>
               <th>Admin Actions</th>
-              <th>Others Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -126,7 +123,7 @@ const handleMakeAdmin = (user) => {
                       onClick={() => handleRemoveAdmin(user)}
                       className="btn bg-red-300"
                     >
-                      <BsFillShieldLockFill/>
+                      <BsFillShieldLockFill />
                     </button>
                   ) : (
                     <button
@@ -137,9 +134,6 @@ const handleMakeAdmin = (user) => {
                     </button>
                   )}
                 </td>
-                <th>
-                  <button className="btn btn-ghost btn-xs">Actions</button>
-                </th>
               </tr>
             ))}
           </tbody>

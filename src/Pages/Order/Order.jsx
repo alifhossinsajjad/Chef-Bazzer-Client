@@ -13,6 +13,7 @@ import {
   FaSortNumericUp,
   FaMoneyBillWave,
 } from "react-icons/fa";
+import { FaBurger } from "react-icons/fa6";
 
 const Order = () => {
   const { id } = useParams();
@@ -57,7 +58,7 @@ const Order = () => {
       setValue("mealName", meal.ChefName);
       setValue("price", meal.Price);
       setValue("chefId", meal.ChefId);
-      setValue("userName", user.name);
+      setValue("FoodName", meal.FoodName);
       setValue("userEmail", user.email);
     }
   }, [meal, user, setValue]);
@@ -76,13 +77,12 @@ const Order = () => {
         const orderData = {
           foodId: meal._id,
           mealName: meal.ChefName,
+          FoodName: meal.FoodName,
           price: meal.Price,
           quantity: parseInt(data.quantity),
           totalPrice: totalPrice,
           chefId: meal.ChefId,
-
           userEmail: user.email,
-          userName: user.name,
           userAddress: data.userAddress,
 
           orderTime: new Date().toISOString(),
@@ -223,15 +223,15 @@ const Order = () => {
             </div>
 
             {/* User Email (Read-only) */}
-            <div className="form-control">
-              <label className="label">
+            <div className="form-control ">
+              <label className="label mr-2">
                 <span className="label-text font-semibold text-gray-600 flex items-center gap-2">
-                  <FaUser className="text-amber-500" /> Name
+                  <FaBurger className="text-amber-500" /> Food Name
                 </span>
               </label>
               <input
                 type="text"
-                {...register("userName")}
+                {...register("FoodName")}
                 readOnly
                 className="input input-bordered bg-gray-100 font-medium text-gray-500 focus:outline-none"
               />

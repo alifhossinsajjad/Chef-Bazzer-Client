@@ -18,7 +18,6 @@ const MyOrder = () => {
       console.log("Orders data:", res.data);
       return res.data;
     },
-
   });
 
   const handleParcelDelete = (id) => {
@@ -50,22 +49,29 @@ const MyOrder = () => {
   const haddlePayment = async (order) => {
     // Payment processing logic goes here
     const paymentInfo = {
-      price: order.totalPrice || order.price, 
-      orderId: order._id, 
-      userEmail: order.userEmail || user?.email, 
+      price: order.totalPrice || order.price,
+      orderId: order._id,
+      userEmail: order.userEmail || user?.email,
       userName: order.userName || user?.displayName,
       mealName: order.mealName,
       trackingId: order.trackingId,
     };
 
     try {
-      const res = await axiosSecure.post("/create-checkout-session", paymentInfo);
+      const res = await axiosSecure.post(
+        "/create-checkout-session",
+        paymentInfo
+      );
       if (res.data.url) {
         window.location.href = res.data.url;
       }
     } catch (error) {
       console.error("Payment initiation failed", error);
-      Swal.fire("Error", "Could not initiate payment. Please try again.", "error");
+      Swal.fire(
+        "Error",
+        "Could not initiate payment. Please try again.",
+        "error"
+      );
     }
     // console.log(res.data);
   };
@@ -79,21 +85,25 @@ const MyOrder = () => {
             {/* head */}
             <thead className="text-center">
               <tr>
-                <th>SN</th>
-                <th>Name</th>
+                {/* <th>SN</th> */}
+                <th>Food Name</th>
                 <th>price</th>
-                <th>Payment Status</th>
-                <th>Tracking Id</th>
+                <th>Quantity</th>
+                
+                {/* <th>Tracking Id</th> */}
                 <th>Order Status</th>
-                <th>Actions</th>
+                <th>Order Address</th>
+                <th>Payment Status</th>
+                {/* <th>Actions</th> */}
               </tr>
             </thead>
             <tbody className="text-center">
-              {orders.map((order, index) => (
+              {orders.map((order) => (
                 <tr key={order._id}>
-                  <th>{index + 1}</th>
-                  <td>{order.mealName}</td>
-                  <td>{order.price}</td>
+                  {/* <th>{index + 1}</th> */}
+                  <td>{order.FoodName}</td>
+                  <td>${order.price}</td>
+                  <td>{order.quantity}</td>
                   {/* <td>{parcel.parcelType}</td> */}
                   <td>
                     {order.paymentStatus === "paid" ? (
@@ -103,7 +113,6 @@ const MyOrder = () => {
                       //   <button className="btn btn-primary btn-sm">Pay</button>
                       // </Link>
 
-
                       <button
                         onClick={() => haddlePayment(order)}
                         className="btn bg-amber-500 btn-sm"
@@ -112,13 +121,15 @@ const MyOrder = () => {
                       </button>
                     )}
                   </td>
-                  <td>
+                  
+                  <td>{order.userAddress}</td>
+                  {/* <td>
                     <Link to={`/parcel-track/${order.trackingId}`}>
                       {order.trackingId}
                     </Link>
-                  </td>
+                  </td> */}
                   <td>{order.orderStatus}</td>
-                  <td className="space-x-2">
+                  {/* <td className="space-x-2">
                     <button className="btn btn-square hover:btn-primary">
                       <FaMagnifyingGlass />
                     </button>
@@ -131,14 +142,12 @@ const MyOrder = () => {
                     <button className="btn btn-square hover:btn-primary">
                       <FaEdit />
                     </button>
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-
-
       </div>
     </div>
   );
