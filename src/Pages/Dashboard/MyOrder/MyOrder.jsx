@@ -11,7 +11,7 @@ const MyOrder = () => {
   const { user } = useAuth();
   const axiosSecure = useAxiosSecure();
 
-  const { data: orders = [], refetch } = useQuery({
+  const { data: orders = [] } = useQuery({
     queryKey: ["myOrders", user?.email],
     queryFn: async () => {
       const res = await axiosSecure.get(`/orders?email=${user?.email}`);
@@ -20,32 +20,7 @@ const MyOrder = () => {
     },
   });
 
-  const handleParcelDelete = (id) => {
-    console.log("delete parcel", id);
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        axiosSecure.delete(`/orders/${id}`).then((res) => {
-          console.log(res.data);
-
-          if (res.data.deletedCount > 0) {
-            refetch();
-            {
-              Swal.fire("Deleted!", "Your parcel has been deleted.", "success");
-            }
-          }
-        });
-      }
-    });
-  };
-
+ 
   const haddlePayment = async (order) => {
     // Payment processing logic goes here
     const paymentInfo = {

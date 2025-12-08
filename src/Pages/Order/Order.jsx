@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import useAuth from "../../Hooks/useAuth";
+import useRole from "../../Hooks/useRole";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
@@ -18,9 +19,24 @@ import { FaBurger } from "react-icons/fa6";
 const Order = () => {
   const { id } = useParams();
   const { user } = useAuth();
+  const { status } = useRole();
   const axiosSecure = useAxiosSecure();
   const navigate = useNavigate();
   const [totalPrice, setTotalPrice] = useState(0);
+
+  // Check if user is fraud
+  useEffect(() => {
+    if (status === "fraud") {
+      Swal.fire({
+        icon: "error",
+        title: "Access Denied",
+        text: "Your account has been marked as fraud. You cannot place orders.",
+        confirmButtonColor: "#ef4444",
+      }).then(() => {
+        navigate("/");
+      });
+    }
+  }, [status, navigate]);
 
   const {
     register,

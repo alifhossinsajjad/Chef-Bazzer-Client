@@ -136,12 +136,12 @@ const Navbar = () => {
             )}
           </button>
 
-          <Link
+          {/* <Link
             to={"/chef"}
             className="px-5 py-2 rounded-full border border-orange-500 text-orange-600 font-semibold hover:bg-orange-500 hover:text-white transition-all duration-300 shadow-sm"
           >
             Be a Chef
-          </Link>
+          </Link> */}
 
           {user ? (
             <div className="dropdown dropdown-end">
@@ -300,13 +300,13 @@ const Navbar = () => {
                 </>
               )}
             </button>
-            <Link
+            {/* <Link
               to={"/chef"}
               className="btn btn-outline border-orange-500 text-orange-600 hover:bg-orange-500 hover:text-white w-full rounded-full"
               onClick={() => setIsMobileMenuOpen(false)}
             >
               Be a Chef
-            </Link>
+            </Link> */}
             {user ? (
               <button
                 onClick={() => {
