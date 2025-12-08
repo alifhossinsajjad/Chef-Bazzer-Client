@@ -3,7 +3,7 @@ import { useParams, Link } from "react-router";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useAuth from "../../Hooks/useAuth";
-import { FaStar, FaShoppingCart, FaHeart } from "react-icons/fa";
+import { FaStar, FaShoppingCart, FaHeart, FaRegHeart } from "react-icons/fa";
 import Swal from "sweetalert2";
 
 const MealsDetails = () => {
@@ -31,6 +31,16 @@ const MealsDetails = () => {
     },
   });
 
+  // Check if meal is favorited
+  const { data: favoriteStatus = {}, refetch: refetchFavorite } = useQuery({
+    queryKey: ["favorite-status", user?.email, id],
+    enabled: !!user?.email && !!id,
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/favorites/${user.email}/${id}`);
+      return res.data;
+    },
+  });
+
   // Mutation for adding review
   const { mutate: addReview } = useMutation({
     mutationFn: async (reviewData) => {
@@ -54,6 +64,7 @@ const MealsDetails = () => {
         Swal.fire("Info", "This meal is already in your favorites.", "info");
       } else {
         Swal.fire("Success", "Added to favorites!", "success");
+        refetchFavorite();
       }
     },
   });
@@ -92,7 +103,7 @@ const MealsDetails = () => {
     addToFavorite({ ...favoriteData, mealName: meal.title || meal.ChefName });
   };
 
-  
+
 
   if (isLoading)
     return (
@@ -116,9 +127,11 @@ const MealsDetails = () => {
             <div className="absolute top-4 left-4">
               <button
                 onClick={handleAddToFavorite}
-                className="btn btn-circle bg-white/80 hover:bg-white border-none shadow-lg text-red-500 text-xl"
+                className={`btn btn-circle bg-white/80 hover:bg-white border-none shadow-lg text-xl ${favoriteStatus.isFavorite ? "text-red-500" : "text-gray-400"
+                  }`}
+                title={favoriteStatus.isFavorite ? "Already in favorites" : "Add to favorites"}
               >
-                <FaHeart />
+                {favoriteStatus.isFavorite ? <FaHeart /> : <FaRegHeart />}
               </button>
             </div>
           </div>
@@ -170,7 +183,7 @@ const MealsDetails = () => {
             </div>
             <div className="flex gap-4 mt-auto">
               <Link
-             to={`/order/${meal._id}`}
+                to={`/order/${meal._id}`}
                 className="flex-1 btn bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white border-none rounded-xl text-lg h-14 shadow-lg shadow-orange-500/30"
               >
                 Order Now <FaShoppingCart className="ml-2" />
@@ -294,9 +307,8 @@ const MealsDetails = () => {
                         <input
                           key={s}
                           type="radio"
-                          className={`mask mask-star-2 ${
-                            s <= review.rating ? "bg-amber-400" : "bg-gray-300"
-                          }`}
+                          className={`mask mask-star-2 ${s <= review.rating ? "bg-amber-400" : "bg-gray-300"
+                            }`}
                           checked
                           readOnly
                         />
