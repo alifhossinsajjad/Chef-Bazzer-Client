@@ -27,7 +27,7 @@ const Profile = () => {
     };
 
     try {
-      const res = await axiosSecure.post("/admin-requests", requestData);
+      const res = await axiosSecure.post("/chef", requestData);
       if (res.data.insertedId) {
         Swal.fire({
           icon: "success",
@@ -116,19 +116,18 @@ const Profile = () => {
             </div>
 
             {/* Chef ID if applicable */}
-            {role === "/chef" || role === "/rider" ? ( 
+            {role === "/chef" || role === "/rider" ? (
               <div className="border-b border-gray-200 pb-3">
                 <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider block">
                   Chef ID
                 </span>
                 <p className="font-mono text-gray-800 flex items-center gap-2">
                   <FaIdBadge className="text-orange-500" />{" "}
-                  {user?.uid?.slice(0, 10)}... 
+                  {user?.uid?.slice(0, 10)}...
                 </p>
               </div>
             ) : null}
 
-          
             <div>
               <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider block">
                 Address
@@ -141,7 +140,7 @@ const Profile = () => {
           </div>
 
           {/* Action Buttons */}
-          {/* <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+          <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
             {role !== "admin" && role !== "chef" && (
               <button
                 onClick={() => handleRequest("chef")}
@@ -159,7 +158,7 @@ const Profile = () => {
                 <FaIdBadge className="mr-2" /> Be an Admin
               </button>
             )}
-          </div> */}
+          </div>
         </div>
       </div>
     </div>

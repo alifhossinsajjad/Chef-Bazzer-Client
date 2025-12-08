@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AssignChef = () => {
+const CompleteOrder = () => {
     return (
         <div>
             
@@ -8,4 +8,4 @@ const AssignChef = () => {
     );
 };
 
-export default AssignChef;
+export default CompleteOrder;

@@ -23,6 +23,10 @@ import Profile from "../Pages/Profile/Profile";
 import MyReview from "../Pages/MyReview/MyReview";
 import PaymentSuccess from "../Pages/Dashboard/Payment/PaymentSuccess";
 import PaymentCancled from "../Pages/Dashboard/Payment/PaymentCancled";
+import ChefRoute from "../Routes/ChefRoute";
+import AssignOrder from "../Pages/Dashboard/AssignOrder/AssignOrder";
+import CompleteOrder from "../Pages/Dashboard/CompleteOrder/CompleteOrder";
+import ApproveChef from "../Pages/Dashboard/ApproveChef/ApproveChef";
 
 const router = createBrowserRouter([
   {
@@ -111,16 +115,38 @@ const router = createBrowserRouter([
         Component: MyOrder,
       },
       {
-        path : 'payment-success',
-        Component : PaymentSuccess,
+        path: "payment-success",
+        Component: PaymentSuccess,
       },
       {
-        path : 'payment-cancled',
-        Component : PaymentCancled,
+        path: "payment-cancled",
+        Component: PaymentCancled,
       },
       {
         path: "payment-history",
         Component: PaymentHistory,
+      },
+      {
+        path: "assigned-order",
+        element: (
+          <ChefRoute>
+            <AssignOrder />
+          </ChefRoute>
+        ),
+      },
+      {
+        path: "complete-order",
+        element: (
+          <ChefRoute>
+            <CompleteOrder />
+          </ChefRoute>
+        ),
+      },
+      {
+        path : 'approve-chef',
+        element : <AdminRoute>
+          <ApproveChef/>
+        </AdminRoute>
       },
       {
         path: "users-management",
