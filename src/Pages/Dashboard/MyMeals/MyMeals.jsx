@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
-import useAuth from "../../../Hooks/useAuth";
+// import useAuth from "../../../Hooks/useAuth";
 import useRole from "../../../Hooks/useRole";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
@@ -15,7 +15,7 @@ import {
 } from "react-icons/fa";
 
 const MyMeals = () => {
-    const { user } = useAuth();
+    // const { user } = useAuth();
     const { chefId } = useRole();
     const axiosSecure = useAxiosSecure();
     const queryClient = useQueryClient();
@@ -45,7 +45,7 @@ const MyMeals = () => {
 
     // Delete mutation
     const deleteMutation = useMutation({
-        mutationFn: async (mealId) => {
+        mutationFn: async () => {
             const res = await axiosSecure.get(`/meals/chef/${chefId}`);
             return res.data;
         },

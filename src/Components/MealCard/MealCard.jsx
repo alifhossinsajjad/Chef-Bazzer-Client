@@ -6,6 +6,8 @@ const MealCard = ({ meal }) => {
   const { ChefName, FoodImage, Price, Rating, DeliveryArea, ChefId, _id } =
     meal;
 
+
+    console.log("delivery area from mealcard",DeliveryArea);
   return (
     <div className="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col h-full border border-gray-100">
       {/* Image Section */}
@@ -41,7 +43,7 @@ const MealCard = ({ meal }) => {
         {/* Delivery Tags */}
         <div className="mb-6 flex-grow">
           <div className="flex flex-wrap gap-2">
-            {DeliveryArea?.slice(0, 3).map((area, index) => (
+            {DeliveryArea?.slice(0, 5).map((area, index) => (
               <span
                 key={index}
                 className="px-3 py-1 bg-gray-50 border border-gray-200 text-gray-600 text-xs font-semibold rounded-full"

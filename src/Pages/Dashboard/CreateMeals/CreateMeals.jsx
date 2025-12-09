@@ -31,6 +31,10 @@ const CreateMeals = () => {
                 .split(",")
                 .map((item) => item.trim())
                 .filter((item) => item.length > 0);
+            const deliveryArea = data.deliveryArea
+                .split(",")
+                .map((item) => item.trim())
+                .filter((item) => item.length > 0);
 
             // Prepare meal data
             const mealData = {
@@ -43,7 +47,7 @@ const CreateMeals = () => {
                 DeliveryTime: data.estimatedDeliveryTime,
                 ChefExperience: data.chefExperience,
                 ChefId: chefId,
-                DeliveryArea: data.deliveryArea || "Local",
+                DeliveryArea: deliveryArea || "Local",
                 userEmail: user.email,
                 createdAt: new Date().toISOString(),
             };
