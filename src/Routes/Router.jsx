@@ -10,7 +10,7 @@ import Register from "../Pages/Auth/Register";
 import Meals from "../Pages/Meals/Meals";
 
 import PrivetRoute from "./PrivetRoute";
-import DashBoardLayout from "../Layout/DashboardLayout/DashboardLayout";
+
 import DashboardHome from "../Pages/Dashboard/DashboardHome/DashboardHome";
 import MealsDetails from "../Pages/MealsDetails/MealsDetails";
 import Order from "../Pages/Order/Order";
@@ -28,6 +28,7 @@ import ChefRoute from "../Routes/ChefRoute";
 import AssignOrder from "../Pages/Dashboard/AssignOrder/AssignOrder";
 import CompleteOrder from "../Pages/Dashboard/CompleteOrder/CompleteOrder";
 import ApproveChef from "../Pages/Dashboard/ApproveChef/ApproveChef";
+import DashBoardLayout from "../Layout/DashboardLayout/DashBoardLayout";
 
 
 
@@ -114,7 +115,7 @@ const router = createBrowserRouter([
     path: "dashboard",
     element: (
       <PrivetRoute>
-        <DashBoardLayout />
+        <DashBoardLayout/>
       </PrivetRoute>
     ),
     children: [
@@ -137,6 +138,22 @@ const router = createBrowserRouter([
       {
         path: "payment-history",
         Component: PaymentHistory,
+      },
+       {
+        path: "review",
+        element: (
+          <PrivetRoute>
+            <MyReview />
+          </PrivetRoute>
+        ),
+      },
+      {
+        path: "favorite",
+        element: (
+          <PrivetRoute>
+            <MyFavoriteMeals />
+          </PrivetRoute>
+        ),
       },
       {
         path: "assigned-order",

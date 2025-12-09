@@ -83,21 +83,7 @@ const Navbar = () => {
           About Us
         </NavLink>
       </li>
-      {user && (
-        <ul className="flex gap-8">
-          {" "}
-          <li>
-            <NavLink to={"/review"} className={navLinkStyles}>
-              My Review
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to={"/favorite"} className={navLinkStyles}>
-              Favorite Meals
-            </NavLink>
-          </li>
-        </ul>
-      )}
+      
     </>
   );
 
@@ -270,22 +256,7 @@ const Navbar = () => {
                 About Us
               </NavLink>
             </li>
-            {user && (
-              <li>
-                <Link
-                  to="/review"
-                  className="block py-2 text-lg font-medium text-gray-700 hover:text-orange-500"
-                >
-                  My Review
-                </Link>
-                <Link
-                  to="/favorite"
-                  className="block py-2 text-lg font-medium text-gray-700 hover:text-orange-500"
-                >
-                  Favorite Meals
-                </Link>
-              </li>
-            )}
+         
 
             {user && (
               <li className="w-full text-center">

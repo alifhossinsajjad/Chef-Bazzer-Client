@@ -99,7 +99,7 @@ const DashBoardLayout = () => {
                 onClick={closeSidebar}
               >
                 <FaParachuteBox className="text-xl" />
-                <span>My Order</span>
+                <span>My Orders</span>
               </NavLink>
               <NavLink
                 to="/dashboard/payment-history"
@@ -109,6 +109,24 @@ const DashBoardLayout = () => {
                 <MdOutlinePayment className="text-xl" />
                 <span>Payment History</span>
               </NavLink>
+              <NavLink
+                to="/dashboard/review"
+                className={navLinkClasses}
+                onClick={closeSidebar}
+              >
+                <MdOutlinePayment className="text-xl" />
+                <span>My Review</span>
+              </NavLink>
+              <NavLink
+                to="/dashboard/favorite"
+                className={navLinkClasses}
+                onClick={closeSidebar}
+              >
+                <MdOutlinePayment className="text-xl" />
+                <span>My Favorites</span>
+              </NavLink>
+              
+
             </>
           )}
 
@@ -118,14 +136,32 @@ const DashBoardLayout = () => {
               <p className="px-4 text-xs font-semibold text-gray-400 uppercase tracking-wider mt-6 mb-2">
                 Chef Zone
               </p>
+
               <NavLink
                 to="/dashboard/assigned-deliveries"
                 className={navLinkClasses}
                 onClick={closeSidebar}
               >
                 <FaTasks className="text-xl" />
-                <span>Assigned Deliveries</span>
+                <span>Order Requests</span>
               </NavLink>
+              <NavLink
+                to="/dashboard/assigned-deliveries"
+                className={navLinkClasses}
+                onClick={closeSidebar}
+              >
+                <FaTasks className="text-xl" />
+                <span>My Meals</span>
+              </NavLink>
+              <NavLink
+                to="/dashboard/assigned-deliveries"
+                className={navLinkClasses}
+                onClick={closeSidebar}
+              >
+                <FaTasks className="text-xl" />
+                <span>Create Meals</span>
+              </NavLink>
+
               <NavLink
                 to="/dashboard/completed-deliveries"
                 className={navLinkClasses}
@@ -167,14 +203,7 @@ const DashBoardLayout = () => {
                 <FaHamburger />
                 <span>Request Chef</span>
               </NavLink>
-              <NavLink
-                to="/dashboard/assign-chef"
-                className={navLinkClasses}
-                onClick={closeSidebar}
-              >
-                <MdAssignmentTurnedIn className="text-xl" />
-                <span>Assign Chef</span>
-              </NavLink>
+
               <NavLink
                 to="/dashboard/users-management"
                 className={navLinkClasses}
