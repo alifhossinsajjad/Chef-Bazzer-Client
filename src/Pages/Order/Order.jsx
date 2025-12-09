@@ -81,13 +81,13 @@ const Order = () => {
 
   const onSubmit = (data) => {
     Swal.fire({
-      title: "Confirm Order?",
-      text: `Your total price is $${totalPrice}. Do you want to confirm the order?`,
+      title: "Confirm Order Request?",
+      text: `Your total price is $${totalPrice}. This will send a request to the chef for approval.`,
       icon: "question",
       showCancelButton: true,
       confirmButtonColor: "#f59e0b",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, confirm it!",
+      confirmButtonText: "Yes, send request!",
     }).then((result) => {
       if (result.isConfirmed) {
         const orderData = {
@@ -100,7 +100,6 @@ const Order = () => {
           chefId: meal.ChefId,
           userEmail: user.email,
           userAddress: data.userAddress,
-
           orderTime: new Date().toISOString(),
         };
 
@@ -108,11 +107,12 @@ const Order = () => {
           .post("/orders", orderData)
           .then((res) => {
             if (res.data.insertedId) {
-              Swal.fire(
-                "Order placed successfully!",
-                "Your delicious meal is on the way.",
-                "success"
-              );
+              Swal.fire({
+                icon: "success",
+                title: "Order Request Sent!",
+                text: "Your order request has been sent to the chef. You can pay after the chef accepts your order.",
+                confirmButtonColor: "#f59e0b",
+              });
               navigate("/dashboard/my-order");
             }
           })

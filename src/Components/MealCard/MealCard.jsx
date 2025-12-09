@@ -3,7 +3,8 @@ import { MdFastfood } from "react-icons/md";
 import { Link } from "react-router";
 
 const MealCard = ({ meal }) => {
-  const { ChefName, FoodImage, Price, Rating, DeliveryArea, ChefId, _id } = meal;
+  const { ChefName, FoodImage, Price, Rating, DeliveryArea, ChefId, _id } =
+    meal;
 
   return (
     <div className="group bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 flex flex-col h-full border border-gray-100">
@@ -31,14 +32,20 @@ const MealCard = ({ meal }) => {
           <h2 className="text-2xl font-bold text-gray-800 mb-1 group-hover:text-amber-600 transition-colors line-clamp-1">
             {ChefName}
           </h2>
-          <p className="text-gray-500 text-sm font-medium">Chef ID: <span className="font-semibold text-gray-700">{ChefId}</span></p>
+          <p className="text-gray-500 text-sm font-medium">
+            Chef ID:{" "}
+            <span className="font-semibold text-gray-700">{ChefId}</span>
+          </p>
         </div>
 
         {/* Delivery Tags */}
         <div className="mb-6 flex-grow">
           <div className="flex flex-wrap gap-2">
             {DeliveryArea?.slice(0, 3).map((area, index) => (
-              <span key={index} className="px-3 py-1 bg-gray-50 border border-gray-200 text-gray-600 text-xs font-semibold rounded-full">
+              <span
+                key={index}
+                className="px-3 py-1 bg-gray-50 border border-gray-200 text-gray-600 text-xs font-semibold rounded-full"
+              >
                 {area}
               </span>
             ))}

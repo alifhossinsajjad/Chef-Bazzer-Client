@@ -25,13 +25,12 @@ import MyFavoriteMeals from "../Pages/MyFavoriteMeals/MyFavoriteMeals";
 import PaymentSuccess from "../Pages/Dashboard/Payment/PaymentSuccess";
 import PaymentCancled from "../Pages/Dashboard/Payment/PaymentCancled";
 import ChefRoute from "../Routes/ChefRoute";
-import AssignOrder from "../Pages/Dashboard/AssignOrder/AssignOrder";
 import CompleteOrder from "../Pages/Dashboard/CompleteOrder/CompleteOrder";
 import ApproveChef from "../Pages/Dashboard/ApproveChef/ApproveChef";
 import DashBoardLayout from "../Layout/DashboardLayout/DashBoardLayout";
-
-
-
+import MyMeals from "../Pages/Dashboard/MyMeals/MyMeals";
+import CreateMeals from "../Pages/Dashboard/CreateMeals/CreateMeals";
+import RequestOrder from "../Pages/Dashboard/ReqestOrder/RequestOrder";
 
 const router = createBrowserRouter([
   {
@@ -79,22 +78,6 @@ const router = createBrowserRouter([
           </PrivetRoute>
         ),
       },
-      {
-        path: "/review",
-        element: (
-          <PrivetRoute>
-            <MyReview />
-          </PrivetRoute>
-        ),
-      },
-      {
-        path: "/favorite",
-        element: (
-          <PrivetRoute>
-            <MyFavoriteMeals />
-          </PrivetRoute>
-        ),
-      },
     ],
   },
   {
@@ -115,7 +98,7 @@ const router = createBrowserRouter([
     path: "dashboard",
     element: (
       <PrivetRoute>
-        <DashBoardLayout/>
+        <DashBoardLayout />
       </PrivetRoute>
     ),
     children: [
@@ -139,7 +122,7 @@ const router = createBrowserRouter([
         path: "payment-history",
         Component: PaymentHistory,
       },
-       {
+      {
         path: "review",
         element: (
           <PrivetRoute>
@@ -155,14 +138,7 @@ const router = createBrowserRouter([
           </PrivetRoute>
         ),
       },
-      {
-        path: "assigned-order",
-        element: (
-          <ChefRoute>
-            <AssignOrder />
-          </ChefRoute>
-        ),
-      },
+     
       {
         path: "complete-order",
         element: (
@@ -172,10 +148,12 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: 'approve-chef',
-        element: <AdminRoute>
-          <ApproveChef />
-        </AdminRoute>
+        path: "approve-chef",
+        element: (
+          <AdminRoute>
+            <ApproveChef />
+          </AdminRoute>
+        ),
       },
       {
         path: "users-management",
@@ -183,6 +161,34 @@ const router = createBrowserRouter([
           <AdminRoute>
             <UsersManagement />
           </AdminRoute>
+        ),
+      },
+      {
+        path: 'request-order',
+        element : <ChefRoute>
+          <RequestOrder/>
+        </ChefRoute>
+      },
+      {
+        path: 'completed-deliveries',
+        element : <ChefRoute>
+          <CompleteOrder/>
+        </ChefRoute>
+      },
+      {
+        path: "my-meals",
+        element: (
+          <ChefRoute>
+            <MyMeals />
+          </ChefRoute>
+        ),
+      },
+      {
+        path: "create-meals",
+        element: (
+          <ChefRoute>
+            <CreateMeals />
+          </ChefRoute>
         ),
       },
     ],

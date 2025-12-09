@@ -138,15 +138,15 @@ const DashBoardLayout = () => {
               </p>
 
               <NavLink
-                to="/dashboard/assigned-deliveries"
+                to="/dashboard/request-order"
                 className={navLinkClasses}
                 onClick={closeSidebar}
               >
                 <FaTasks className="text-xl" />
-                <span>Order Requests</span>
+                <span>Request Order</span>
               </NavLink>
               <NavLink
-                to="/dashboard/assigned-deliveries"
+                to="/dashboard/my-meals"
                 className={navLinkClasses}
                 onClick={closeSidebar}
               >
@@ -154,7 +154,7 @@ const DashBoardLayout = () => {
                 <span>My Meals</span>
               </NavLink>
               <NavLink
-                to="/dashboard/assigned-deliveries"
+                to="/dashboard/create-meals"
                 className={navLinkClasses}
                 onClick={closeSidebar}
               >
@@ -201,7 +201,7 @@ const DashBoardLayout = () => {
                 onClick={closeSidebar}
               >
                 <FaHamburger />
-                <span>Request Chef</span>
+                <span>Chef Request</span>
               </NavLink>
 
               <NavLink

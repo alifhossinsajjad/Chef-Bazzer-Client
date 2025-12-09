@@ -8,7 +8,7 @@ const useRole = () => {
 
   const {
     isloading: roleLoading,
-    data: userRoleInfo = { role: "user", status: "active" },
+    data: userRoleInfo = { role: "user", status: "active", chefId: null },
   } = useQuery({
     queryKey: ["user-role", user?.email],
     queryFn: async () => {
@@ -16,11 +16,17 @@ const useRole = () => {
       return {
         role: res.data?.role || "user",
         status: res.data?.status || "active",
+        chefId: res.data?.chefId || null,
       };
     },
   });
 
-  return { roleLoading, role: userRoleInfo.role, status: userRoleInfo.status };
+  return {
+    roleLoading,
+    role: userRoleInfo.role,
+    status: userRoleInfo.status,
+    chefId: userRoleInfo.chefId
+  };
 };
 
 export default useRole;

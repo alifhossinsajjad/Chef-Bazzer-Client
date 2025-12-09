@@ -20,9 +20,19 @@ const MyOrder = () => {
     },
   });
 
- 
   const haddlePayment = async (order) => {
-    // Payment processing logic goes here
+    // Check if order is accepted by chef
+    if (order.orderStatus !== "accepted-by-chef") {
+      Swal.fire({
+        icon: "warning",
+        title: "Cannot Pay Yet",
+        text: "Please wait for the chef to accept your order before making payment.",
+        confirmButtonColor: "#f59e0b",
+      });
+      return;
+    }
+
+    // Payment processing logic
     const paymentInfo = {
       price: order.totalPrice || order.price,
       orderId: order._id,
@@ -48,81 +58,84 @@ const MyOrder = () => {
         "error"
       );
     }
-    // console.log(res.data);
   };
 
   return (
-    <div>
-      <div>
-        <h2>add of my all parcels : {orders.length}</h2>
-        <div className="overflow-x-auto">
-          <table className="table table-zebra">
-            {/* head */}
-            <thead className="text-center">
-              <tr>
-                {/* <th>SN</th> */}
-                <th>Food Name</th>
-                <th>price</th>
-                <th>Quantity</th>
-                
-                {/* <th>Tracking Id</th> */}
-                <th>Order Status</th>
-                <th>Order Address</th>
-                <th>Payment Status</th>
-                {/* <th>Actions</th> */}
-              </tr>
-            </thead>
-            <tbody className="text-center">
-              {orders.map((order) => (
-                <tr key={order._id}>
-                  {/* <th>{index + 1}</th> */}
-                  <td>{order.FoodName}</td>
-                  <td>${order.price}</td>
-                  <td>{order.quantity}</td>
-                  {/* <td>{parcel.parcelType}</td> */}
-                  <td>
-                    {order.paymentStatus === "paid" ? (
-                      <span className="text-green-800">Paid</span>
-                    ) : (
-                      // <Link to={`/dashboard/payment/${parcel._id}`}>
-                      //   <button className="btn btn-primary btn-sm">Pay</button>
-                      // </Link>
-
-                      <button
-                        onClick={() => haddlePayment(order)}
-                        className="btn bg-amber-500 btn-sm"
-                      >
-                        pay
-                      </button>
-                    )}
-                  </td>
-                  
-                  <td>{order.userAddress}</td>
-                  {/* <td>
-                    <Link to={`/parcel-track/${order.trackingId}`}>
-                      {order.trackingId}
-                    </Link>
-                  </td> */}
-                  <td>{order.orderStatus}</td>
-                  {/* <td className="space-x-2">
-                    <button className="btn btn-square hover:btn-primary">
-                      <FaMagnifyingGlass />
-                    </button>
+    <div className="p-6">
+      <div className="mb-6">
+        <h2 className="text-2xl font-bold text-gray-800">
+          My Orders ({orders.length})
+        </h2>
+      </div>
+      <div className="overflow-x-auto bg-white rounded-xl shadow-sm">
+        <table className="table table-zebra">
+          {/* head */}
+          <thead className="text-center bg-gray-100">
+            <tr>
+              <th>Food Name</th>
+              <th>Price</th>
+              <th>Quantity</th>
+              <th>Payment Status</th>
+              <th>Order Address</th>
+              <th>Order Status</th>
+            </tr>
+          </thead>
+          <tbody className="text-center">
+            {orders.map((order) => (
+              <tr key={order._id}>
+                <td>{order.FoodName}</td>
+                <td>${order.price}</td>
+                <td>{order.quantity}</td>
+                <td>
+                  {order.paymentStatus === "paid" ? (
+                    <span className="badge badge-success text-white">Paid</span>
+                  ) : order.orderStatus === "pending-chef-approval" ? (
+                    <span className="badge badge-warning">
+                      Waiting for Chef Approval
+                    </span>
+                  ) : order.orderStatus === "accepted-by-chef" ? (
                     <button
-                      onClick={() => handleParcelDelete(order._id)}
-                      className="btn btn-square hover:btn-primary"
+                      onClick={() => haddlePayment(order)}
+                      className="btn bg-amber-500 hover:bg-amber-600 text-white btn-sm"
                     >
-                      <FaTrashCan />
+                      Pay Now
                     </button>
-                    <button className="btn btn-square hover:btn-primary">
-                      <FaEdit />
-                    </button>
-                  </td> */}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+                  ) : order.orderStatus === "rejected" ? (
+                    <span className="badge badge-error text-white">
+                      Order Rejected
+                    </span>
+                  ) : (
+                    <span className="badge badge-info">
+                      {order.orderStatus}
+                    </span>
+                  )}
+                </td>
+
+                <td>{order.userAddress}</td>
+                <td>
+                  {order.orderStatus === "pending-chef-approval" && (
+                    <span className="badge badge-warning">Pending Approval</span>
+                  )}
+                  {order.orderStatus === "accepted-by-chef" && (
+                    <span className="badge badge-success">Accepted</span>
+                  )}
+                  {order.orderStatus === "rejected" && (
+                    <span className="badge badge-error">Rejected</span>
+                  )}
+                  {order.orderStatus === "pending-pickup" && (
+                    <span className="badge badge-info">Pending Pickup</span>
+                  )}
+                  {order.orderStatus === "delivered" && (
+                    <span className="badge badge-success">Delivered</span>
+                  )}
+                  {!order.orderStatus && (
+                    <span className="badge badge-warning">Pending</span>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
     </div>
   );

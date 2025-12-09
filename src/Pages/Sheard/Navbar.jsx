@@ -149,6 +149,7 @@ const Navbar = () => {
                     referrerPolicy="no-referrer"
                     src={user?.photoURL || "https://i.ibb.co/1Jgq0jZ/user.png"}
                     alt="User Profile"
+                    className="rounded-full w-10 h-10"
                   />
                 </Link>
               </div>
