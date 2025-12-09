@@ -1,7 +1,11 @@
 import React from 'react';
 import Banner from '../Banner/Banner';
 import TopRatedMeals from '../TopRatedMeals/TopRatedMeals';
-import CustomerReview from '../CutomerReview/CustomerReview';
+
+import WhyChooseUs from '../WhyChooseUS/WhyChooseUs';
+import Testimonial from '../Testimonial/Testimonial';
+import CTAAction from '../CTAAction/CTAAction';
+
 
 const Home = () => {
     return (
@@ -13,7 +17,13 @@ const Home = () => {
                 <TopRatedMeals/>
             </section>
             <section>
-                <CustomerReview/>
+                <Testimonial/>
+            </section>
+            <section>
+                <WhyChooseUs/>
+            </section>
+            <section>
+                <CTAAction/>
             </section>
         </div>
     );
