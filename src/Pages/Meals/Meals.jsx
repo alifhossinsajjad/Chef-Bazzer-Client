@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Loading from "../../Components/Loading/Loading";
@@ -12,11 +12,11 @@ const Meals = () => {
   const itemsPerPage = 9;
 
 
-  React.useEffect(() => {
+ useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearch(search);
       setCurrentPage(1); 
-    }, 2000);
+    }, 1000);
 
     return () => {
       clearTimeout(handler);
@@ -43,13 +43,13 @@ const Meals = () => {
   if (isLoading)
     return (
       <div>
-        <Loading />
+        <Loading/>
       </div>
     );
-  if (isError) return <div>Error loading meals</div>;
+  if (isError) return <div></div>;
 
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="bg-gray-50 min-h-screen mt-20">
       {/* Trending Section */}
       <section className="bg-gradient-to-r from-amber-600 to-orange-500 py-16 text-white text-center">
         <h1 className="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight drop-shadow-md">
@@ -62,7 +62,7 @@ const Meals = () => {
 
       <div className="container mx-auto px-4 py-8 -mt-8 relative z-10">
         {/* Search Bar */}
-        <div className="max-w-xl mx-auto mb-10 bg-white p-4 rounded-xl shadow-lg flex items-center gap-2">
+        <div className="max-w-xl mx-auto mb-10 bg-white p-4 rounded-xl shadow-lg flex items-center gap-2 mt-12">
           <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>

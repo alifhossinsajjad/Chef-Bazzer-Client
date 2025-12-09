@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-// import useAuth from "../../Hooks/useAuth";
+import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
@@ -7,7 +7,7 @@ import { FaTrash, FaEdit, FaStar, FaQuoteLeft } from "react-icons/fa";
 import { useParams } from "react-router";
 
 const MyReview = () => {
-  // const {user} = useAuth()
+  const {user} = useAuth()
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
   const [editingReview, setEditingReview] = useState(null);
@@ -19,7 +19,7 @@ const MyReview = () => {
   } = useQuery({
     queryKey: ["reviews", id],
     queryFn: async () => {
-      const res = await axiosSecure.get(`/reviews`);
+      const res = await axiosSecure.get(`/reviews?email=${user.email}`);
       console.log(res.data);
       return res.data;
     },
@@ -129,8 +129,13 @@ const MyReview = () => {
                     : "Unknown Date"}
                 </div>
 
-                <div className="card-actions justify-end mt-4 pt-4 border-t border-gray-100">
-                  <button
+                <div className="card-actions justify-between mt-4 pt-4 border-t border-gray-100">
+                  <div>
+                    <img src={user.photoURL} className="w-10 h-10 rounded-full" alt="" />
+                    <p>Name : {review.reviewerName}</p>
+                  </div>
+                  <div>
+                    <button
                     onClick={() => handleUpdateClick(review)}
                     className="btn btn-sm btn-ghost text-blue-600 hover:bg-blue-50"
                   >
@@ -142,6 +147,7 @@ const MyReview = () => {
                   >
                     <FaTrash />
                   </button>
+                  </div>
                 </div>
               </div>
             </div>

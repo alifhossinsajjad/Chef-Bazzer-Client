@@ -11,12 +11,14 @@ import {
   FaParachuteBox,
   FaSignOutAlt,
   FaHamburger,
+  FaHeart,
 } from "react-icons/fa";
 import {
   MdOutlinePayment,
   MdOutlineTaskAlt,
   MdAssignmentTurnedIn,
   MdDashboard,
+  MdOutlineReviews,
 } from "react-icons/md";
 import useRole from "../../Hooks/useRole";
 import useAuth from "../../Hooks/useAuth";
@@ -114,7 +116,7 @@ const DashBoardLayout = () => {
                 className={navLinkClasses}
                 onClick={closeSidebar}
               >
-                <MdOutlinePayment className="text-xl" />
+                <MdOutlineReviews className="text-xl"/>
                 <span>My Review</span>
               </NavLink>
               <NavLink
@@ -122,7 +124,7 @@ const DashBoardLayout = () => {
                 className={navLinkClasses}
                 onClick={closeSidebar}
               >
-                <MdOutlinePayment className="text-xl" />
+                <FaHeart className="text-xl" />
                 <span>My Favorites</span>
               </NavLink>
               

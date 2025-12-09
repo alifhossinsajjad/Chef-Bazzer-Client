@@ -31,6 +31,7 @@ import DashBoardLayout from "../Layout/DashboardLayout/DashBoardLayout";
 import MyMeals from "../Pages/Dashboard/MyMeals/MyMeals";
 import CreateMeals from "../Pages/Dashboard/CreateMeals/CreateMeals";
 import RequestOrder from "../Pages/Dashboard/ReqestOrder/RequestOrder";
+import About from "../Pages/About/About";
 
 const router = createBrowserRouter([
   {
@@ -78,6 +79,10 @@ const router = createBrowserRouter([
           </PrivetRoute>
         ),
       },
+      {
+        path :'/about',
+        Component : About,
+      }
     ],
   },
   {

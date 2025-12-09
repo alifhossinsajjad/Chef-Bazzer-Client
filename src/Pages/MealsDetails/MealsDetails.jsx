@@ -81,6 +81,7 @@ const MealsDetails = () => {
       reviewerImage: user.photoURL,
       rating,
       comment,
+      email: user.email,
       date: new Date().toISOString(),
     };
     addReview(reviewData);
