@@ -11,6 +11,8 @@ const MyReview = () => {
   const { id } = useParams();
   const axiosSecure = useAxiosSecure();
   const [editingReview, setEditingReview] = useState(null);
+const [openModal, setOpenModal] = useState(false);
+
 
   const {
     data: reviews = [],
@@ -50,10 +52,19 @@ const MyReview = () => {
     });
   };
 
-  const handleUpdateClick = (review) => {
-    setEditingReview(review);
-    document.getElementById("update_modal").showModal();
-  };
+
+const handleUpdateClick = (review) => {
+  setEditingReview(review);
+  setOpenModal(true);
+};
+
+
+const closeModal = () => {
+  setOpenModal(false);
+  setEditingReview(null);
+};
+
+
 
   const handleUpdateSubmit = async (e) => {
     e.preventDefault();
@@ -67,12 +78,11 @@ const MyReview = () => {
         comment,
       });
 
-      if (res.data.modifiedCount > 0) {
-        refetch();
-        document.getElementById("update_modal").close();
-        Swal.fire("Success", "Review updated successfully", "success");
-        setEditingReview(null);
-      }
+       if (res.data.modifiedCount > 0) {
+      refetch();
+      Swal.fire("Success", "Review updated successfully", "success");
+      closeModal();
+    }
     } catch (error) {
       console.error("Error updating review:", error);
       Swal.fire("Error", "Could not update review.", "error");
@@ -156,60 +166,51 @@ const MyReview = () => {
       )}
 
       {/* Update Modal */}
-      <dialog id="update_modal" className="modal modal-bottom sm:modal-middle">
-        <div className="modal-box">
-          <h3 className="font-bold text-lg mb-4 text-orange-600">
-            Update Review
-          </h3>
-          {editingReview && (
-            <form onSubmit={handleUpdateSubmit} className="space-y-4">
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Rating (1-5)</span>
-                </label>
-                <input
-                  type="number"
-                  name="rating"
-                  min="1"
-                  max="5"
-                  step="0.1"
-                  defaultValue={editingReview.rating}
-                  className="input input-bordered w-full focus:outline-none focus:border-orange-500"
-                  required
-                />
-              </div>
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Your Comment</span>
-                </label>
-                <textarea
-                  name="comment"
-                  defaultValue={editingReview.comment}
-                  className="textarea textarea-bordered h-24 focus:outline-none focus:border-orange-500"
-                  required
-                ></textarea>
-              </div>
-              <div className="modal-action">
-                <form method="dialog">
-                  {/* if there is a button in form, it will close the modal */}
-                  <button
-                    className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
-                    onClick={() => setEditingReview(null)}
-                  >
-                    ✕
-                  </button>
-                </form>
-                <button
-                  type="submit"
-                  className="btn bg-orange-500 hover:bg-orange-600 text-white"
-                >
-                  Save Changes
-                </button>
-              </div>
-            </form>
-          )}
+    <dialog open={openModal} className="modal modal-bottom sm:modal-middle">
+  <div className="modal-box">
+    
+    <button
+      className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2"
+      onClick={closeModal}
+    >
+      ✕
+    </button>
+
+    <h3 className="font-bold text-lg mb-4 text-orange-600">
+      Update Review
+    </h3>
+
+    {editingReview && (
+      <form onSubmit={handleUpdateSubmit} className="space-y-4">
+
+        <input
+          type="number"
+          name="rating"
+          min="1"
+          max="5"
+          step="0.1"
+          defaultValue={editingReview.rating}
+          className="input input-bordered w-full"
+          required
+        />
+
+        <textarea
+          name="comment"
+          defaultValue={editingReview.comment}
+          className="textarea textarea-bordered h-24"
+          required
+        ></textarea>
+
+        <div className="modal-action">
+          <button type="submit" className="btn bg-orange-500 text-white">
+            Save Changes
+          </button>
         </div>
-      </dialog>
+      </form>
+    )}
+  </div>
+</dialog>
+
     </div>
   );
 };

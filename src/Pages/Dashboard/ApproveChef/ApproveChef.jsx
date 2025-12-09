@@ -8,8 +8,8 @@ const ApproveChef = () => {
   const axiosSecure = useAxiosSecure();
 
   const {
-    refetch,
     data: chefs = [],
+    refetch,
     isLoading,
   } = useQuery({
     queryKey: ["chefs"],
@@ -30,7 +30,11 @@ const ApproveChef = () => {
           Swal.fire({
             position: "top-end",
             icon: "success",
-            title: `Request ${status} successfully! ${status === 'approved' ? `User role updated to ${chef.requestType}` : ''}`,
+            title: `Request ${status} successfully! ${
+              status === "approved"
+                ? `User role updated to ${chef.requestType}`
+                : ""
+            }`,
             showConfirmButton: false,
             timer: 2500,
           });
@@ -85,7 +89,9 @@ const ApproveChef = () => {
           <span className="loading loading-spinner loading-lg text-primary"></span>
         </div>
       ) : chefs.length === 0 ? (
-        <p className="text-gray-500 text-center py-12">No requests available.</p>
+        <p className="text-gray-500 text-center py-12">
+          No requests available.
+        </p>
       ) : (
         <div className="overflow-x-auto">
           <table className="table w-full">
@@ -114,12 +120,13 @@ const ApproveChef = () => {
                   <td>{new Date(chef.requestTime).toLocaleDateString()}</td>
                   <td>
                     <span
-                      className={`px-3 py-1 rounded-full text-sm font-semibold ${chef.status === "approved"
+                      className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                        chef.status === "approved"
                           ? "bg-green-100 text-green-800"
                           : chef.status === "rejected"
-                            ? "bg-red-100 text-red-800"
-                            : "bg-yellow-100 text-yellow-800"
-                        }`}
+                          ? "bg-red-100 text-red-800"
+                          : "bg-yellow-100 text-yellow-800"
+                      }`}
                     >
                       {chef.status}
                     </span>
@@ -127,7 +134,9 @@ const ApproveChef = () => {
                   <td className="flex gap-2 justify-center">
                     <button
                       onClick={() => handleApproval(chef)}
-                      disabled={chef.status === "approved" || chef.status === "rejected"}
+                      disabled={
+                        chef.status === "approved" || chef.status === "rejected"
+                      }
                       className="btn btn-sm btn-success text-white"
                       title="Approve Request"
                     >
@@ -135,7 +144,9 @@ const ApproveChef = () => {
                     </button>
                     <button
                       onClick={() => handleRejection(chef)}
-                      disabled={chef.status === "approved" || chef.status === "rejected"}
+                      disabled={
+                        chef.status === "approved" || chef.status === "rejected"
+                      }
                       className="btn btn-sm btn-error text-white"
                       title="Reject Request"
                     >

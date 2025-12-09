@@ -18,14 +18,14 @@ import AdminRoute from "./AdminRoute";
 import UsersManagement from "../Pages/Dashboard/UsersManagement/UsersManagement";
 import MyOrder from "../Pages/Dashboard/MyOrder/MyOrder";
 import PaymentHistory from "../Pages/Dashboard/PaymentHistory/PaymentHistory";
-import BeAChef from "../Pages/BeAChef/BeAChef";
+
 import Profile from "../Pages/Profile/Profile";
 import MyReview from "../Pages/MyReview/MyReview";
 import MyFavoriteMeals from "../Pages/MyFavoriteMeals/MyFavoriteMeals";
 import PaymentSuccess from "../Pages/Dashboard/Payment/PaymentSuccess";
 import PaymentCancled from "../Pages/Dashboard/Payment/PaymentCancled";
 import ChefRoute from "../Routes/ChefRoute";
-import CompleteOrder from "../Pages/Dashboard/CompleteOrder/CompleteOrder";
+
 import ApproveChef from "../Pages/Dashboard/ApproveChef/ApproveChef";
 import DashBoardLayout from "../Layout/DashboardLayout/DashBoardLayout";
 import MyMeals from "../Pages/Dashboard/MyMeals/MyMeals";
@@ -63,14 +63,7 @@ const router = createBrowserRouter([
           </PrivetRoute>
         ),
       },
-      {
-        path: "/chef",
-        element: (
-          <PrivetRoute>
-            <BeAChef />
-          </PrivetRoute>
-        ),
-      },
+
       {
         path: "/profile",
         element: (
@@ -80,9 +73,9 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path :'/about',
-        Component : About,
-      }
+        path: "/about",
+        Component: About,
+      },
     ],
   },
   {
@@ -143,15 +136,7 @@ const router = createBrowserRouter([
           </PrivetRoute>
         ),
       },
-     
-      {
-        path: "complete-order",
-        element: (
-          <ChefRoute>
-            <CompleteOrder />
-          </ChefRoute>
-        ),
-      },
+
       {
         path: "approve-chef",
         element: (
@@ -169,17 +154,14 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: 'request-order',
-        element : <ChefRoute>
-          <RequestOrder/>
-        </ChefRoute>
+        path: "request-order",
+        element: (
+          <ChefRoute>
+            <RequestOrder />
+          </ChefRoute>
+        ),
       },
-      {
-        path: 'completed-deliveries',
-        element : <ChefRoute>
-          <CompleteOrder/>
-        </ChefRoute>
-      },
+
       {
         path: "my-meals",
         element: (
