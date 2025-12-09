@@ -162,14 +162,14 @@ const DashBoardLayout = () => {
                 <span>Create Meals</span>
               </NavLink>
 
-              <NavLink
+              {/* <NavLink
                 to="/dashboard/completed-deliveries"
                 className={navLinkClasses}
                 onClick={closeSidebar}
               >
                 <MdOutlineTaskAlt className="text-xl" />
                 <span>Completed Deliveries</span>
-              </NavLink>
+              </NavLink> */}
             </>
           )}
 
