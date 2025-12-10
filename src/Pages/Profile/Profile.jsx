@@ -15,7 +15,8 @@ import {
 
 const Profile = () => {
   const { user } = useAuth();
-  const { role, status, roleLoading } = useRole();
+  const { role, status, roleLoading ,address} = useRole();
+
   const axiosSecure = useAxiosSecure();
 
   const handleRequest = async (data) => {
@@ -131,7 +132,7 @@ const Profile = () => {
               </span>
               <p className="text-gray-800 flex items-center gap-2">
                 <FaMapMarkerAlt className="text-red-500" />
-                {user.address|| "No address provided"}
+                {address|| "No address provided"}
               </p>
             </div>
           </div>
