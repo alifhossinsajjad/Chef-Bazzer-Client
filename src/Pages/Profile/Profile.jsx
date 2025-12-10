@@ -3,6 +3,7 @@ import useAuth from "../../Hooks/useAuth";
 import useRole from "../../Hooks/useRole";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import Loading from "../../Components/Loading/Loading"
 import {
   FaUser,
   FaEnvelope,
@@ -52,11 +53,7 @@ const Profile = () => {
   };
 
   if (roleLoading) {
-    return (
-      <div className="min-h-screen flex justify-center items-center">
-        <span className="loading loading-spinner loading-lg text-primary"></span>
-      </div>
-    );
+    return <Loading/>
   }
 
   return (
@@ -134,7 +131,7 @@ const Profile = () => {
               </span>
               <p className="text-gray-800 flex items-center gap-2">
                 <FaMapMarkerAlt className="text-red-500" />
-                {user?.address || "No address provided"}
+                {user.address|| "No address provided"}
               </p>
             </div>
           </div>

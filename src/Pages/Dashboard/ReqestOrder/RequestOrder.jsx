@@ -14,6 +14,7 @@ import {
     FaMoneyBillWave,
     FaBan,
 } from "react-icons/fa";
+import Loading from "../../../Components/Loading/Loading";
 
 const RequestOrder = () => {
     const { user } = useAuth();
@@ -21,7 +22,7 @@ const RequestOrder = () => {
     const queryClient = useQueryClient();
 
     // Fetch ALL orders (not filtered by chefId yet - we'll show all for debugging)
-    const { data: allOrders = [], isLoading } = useQuery({
+    const { data: allOrders = [], isLoading,refetch } = useQuery({
         queryKey: ["chefOrders", user?.email],
         enabled: !!user,
         queryFn: async () => {
@@ -89,6 +90,7 @@ const RequestOrder = () => {
             return res.data;
         },
         onSuccess: () => {
+            refetch()
             Swal.fire({
                 icon: "success",
                 title: "Order Delivered!",
@@ -177,11 +179,7 @@ const RequestOrder = () => {
     };
 
     if (isLoading) {
-        return (
-            <div className="min-h-screen flex justify-center items-center">
-                <span className="loading loading-spinner loading-lg text-amber-500"></span>
-            </div>
-        );
+        return <Loading/>
     }
 
     return (

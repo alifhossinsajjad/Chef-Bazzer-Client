@@ -13,6 +13,7 @@ import {
     FaTruck,
 } from "react-icons/fa";
 import { Link } from "react-router";
+import Loading from "../../../Components/Loading/Loading";
 
 
 const UserDashboard = () => {
@@ -46,11 +47,7 @@ const UserDashboard = () => {
     });
 
     if (isLoading) {
-        return (
-            <div className="min-h-screen flex justify-center items-center">
-                <span className="loading loading-spinner loading-lg text-amber-500"></span>
-            </div>
-        );
+        return <Loading/>
     }
 
     const statCards = [

@@ -161,6 +161,12 @@ const router = createBrowserRouter([
           </ChefRoute>
         ),
       },
+      {
+        path : 'profile',
+        element : <PrivetRoute>
+          <Profile/>
+        </PrivetRoute>
+      },
 
       {
         path: "my-meals",

@@ -83,7 +83,13 @@ const Navbar = () => {
           About Us
         </NavLink>
       </li>
-      
+      {user && (
+        <li>
+          <NavLink to={"/profile"} className={navLinkStyles}>
+            profile
+          </NavLink>
+        </li>
+      )}
     </>
   );
 
@@ -257,7 +263,13 @@ const Navbar = () => {
                 About Us
               </NavLink>
             </li>
-         
+            {user && (
+              <li>
+                <NavLink to={"/profile"} className={navLinkStyles}>
+                  Profile
+                </NavLink>
+              </li>
+            )}
 
             {user && (
               <li className="w-full text-center">

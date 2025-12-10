@@ -21,7 +21,7 @@ const MyOrder = () => {
   });
 
   const haddlePayment = async (order) => {
-    // Check if order is accepted by chef
+   
     if (order.orderStatus !== "accepted-by-chef") {
       Swal.fire({
         icon: "warning",
@@ -32,7 +32,7 @@ const MyOrder = () => {
       return;
     }
 
-    // Payment processing logic
+ 
     const paymentInfo = {
       price: order.totalPrice || order.price,
       orderId: order._id,
@@ -90,18 +90,18 @@ const MyOrder = () => {
                   {order.paymentStatus === "paid" ? (
                     <span className="badge badge-success text-white">Paid</span>
                   ) : order.orderStatus === "pending-chef-approval" ? (
-                    <span className="badge badge-warning">
+                    <span className="badge badge-warning p-5">
                       Waiting for Chef Approval
                     </span>
                   ) : order.orderStatus === "accepted-by-chef" ? (
                     <button
                       onClick={() => haddlePayment(order)}
-                      className="btn bg-amber-500 hover:bg-amber-600 text-white btn-sm"
+                      className="btn bg-amber-500 hover:bg-amber-600 text-white btn-sm "
                     >
                       Pay Now
                     </button>
                   ) : order.orderStatus === "rejected" ? (
-                    <span className="badge badge-error text-white">
+                    <span className="badge badge-error text-white p-4">
                       Order Rejected
                     </span>
                   ) : (
@@ -114,7 +114,9 @@ const MyOrder = () => {
                 <td>{order.userAddress}</td>
                 <td>
                   {order.orderStatus === "pending-chef-approval" && (
-                    <span className="badge badge-warning">Pending Approval</span>
+                    <span className="badge badge-warning p-5">
+                      Pending Approval
+                    </span>
                   )}
                   {order.orderStatus === "accepted-by-chef" && (
                     <span className="badge badge-success">Accepted</span>

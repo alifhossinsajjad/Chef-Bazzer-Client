@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import Swal from "sweetalert2";
 import { FaTrash, FaEdit, FaStar, FaQuoteLeft } from "react-icons/fa";
 import { useParams } from "react-router";
+import Loading from "../../Components/Loading/Loading";
 
 const MyReview = () => {
   const {user} = useAuth()
@@ -90,11 +91,7 @@ const closeModal = () => {
   };
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <span className="loading loading-spinner loading-lg text-primary"></span>
-      </div>
-    );
+    return <Loading/>
   }
 
   return (

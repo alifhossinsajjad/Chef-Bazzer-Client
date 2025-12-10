@@ -12,7 +12,7 @@ import {
   FaBan,
 } from "react-icons/fa";
 import { Link } from "react-router";
-
+import Loading from "../../../Components/Loading/Loading";
 
 const AdminDashboard = () => {
   const axiosSecure = useAxiosSecure();
@@ -33,18 +33,14 @@ const AdminDashboard = () => {
         totalMeals: mealsRes.data.meals?.length || 0,
         totalOrders: ordersRes.data.length || 0,
         totalChefs: chefsRes.data.length || 0,
-        pendingChefs: chefsRes.data.filter((c) => c.status === "pending")
-          .length || 0,
+        pendingChefs:
+          chefsRes.data.filter((c) => c.status === "pending").length || 0,
       };
     },
   });
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen flex justify-center items-center">
-        <span className="loading loading-spinner loading-lg text-amber-500"></span>
-      </div>
-    );
+    return <Loading/>
   }
 
   const statCards = [

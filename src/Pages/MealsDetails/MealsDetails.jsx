@@ -5,6 +5,7 @@ import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import useAuth from "../../Hooks/useAuth";
 import { FaStar, FaShoppingCart, FaHeart, FaRegHeart } from "react-icons/fa";
 import Swal from "sweetalert2";
+import Loading from "../../Components/Loading/Loading";
 
 const MealsDetails = () => {
   const { id } = useParams();
@@ -107,11 +108,7 @@ const MealsDetails = () => {
 
 
   if (isLoading)
-    return (
-      <div className="min-h-screen flex justify-center items-center">
-        <span className="loading loading-spinner loading-lg text-amber-500"></span>
-      </div>
-    );
+    return<Loading/>
 
   return (
     <div className="pt-24 pb-12 min-h-screen bg-gray-50">

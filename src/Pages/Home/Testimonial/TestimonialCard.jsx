@@ -4,7 +4,7 @@ import { FaQuoteLeft, FaStar } from "react-icons/fa";
 const TestimonialCard = ({ review }) => {
   const { reviewerName, comment, reviewerImage, rating } = review;
   return (
-    <div>
+    <div >
       <div className="card w-full max-w-md bg-base-100 shadow-md rounded-xl py-12 px-7 ">
         <div className="flex items-start gap-3">
           <FaQuoteLeft className="text-2xl mb-4  text-orange-400" />

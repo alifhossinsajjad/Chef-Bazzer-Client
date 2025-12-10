@@ -20,7 +20,7 @@ const Testimonial = () => {
   });
 
   return (
-   <div className="w-7xl mx-auto justify-center">
+   <div className="xl:lg:md:max-w-7xl mx-auto justify-center items-center">
      <div >
       <Swiper
         effect={"coverflow"}
@@ -28,9 +28,9 @@ const Testimonial = () => {
         centeredSlides={true}
         slidesPerView={3}
         coverflowEffect={{
-          rotate: 30,
+          rotate: 20,
           stretch: "50",
-          depth: 200,
+          depth: 100,
           modifier: 1,
           scale: 0.75,
           slideShadows: true,
@@ -43,11 +43,13 @@ const Testimonial = () => {
         modules={[EffectCoverflow, Pagination, Autoplay]}
         className="mySwiper"
       >
-        {reviews.map((review) => (
+        
+          {reviews.map((review) => (
           <SwiperSlide key={review.id}>
             <TestimonialCard review={review}></TestimonialCard>
           </SwiperSlide>
         ))}
+      
       </Swiper>
     </div>
    </div>

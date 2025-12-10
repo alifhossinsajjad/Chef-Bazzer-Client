@@ -5,6 +5,7 @@ import useAuth from '../../Hooks/useAuth';
 import Swal from 'sweetalert2';
 import { FaTrash, FaUtensils } from 'react-icons/fa';
 import { useQuery } from '@tanstack/react-query';
+import Loading from '../../Components/Loading/Loading';
 
 const MyFavoriteMeals = () => {
     const axiosSecure = useAxiosSecure();
@@ -45,11 +46,7 @@ const MyFavoriteMeals = () => {
     };
 
     if (isLoading) {
-        return (
-            <div className="flex justify-center items-center h-screen">
-                <span className="loading loading-spinner loading-lg text-primary"></span>
-            </div>
-        );
+        return<Loading/>
     }
 
     return (

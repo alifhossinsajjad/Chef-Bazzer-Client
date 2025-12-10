@@ -15,6 +15,7 @@ import {
   FaMoneyBillWave,
 } from "react-icons/fa";
 import { FaBurger } from "react-icons/fa6";
+import Loading from "../../Components/Loading/Loading";
 
 const Order = () => {
   const { id } = useParams();
@@ -129,11 +130,7 @@ const Order = () => {
   };
 
   if (isLoading)
-    return (
-      <div className="min-h-screen flex justify-center items-center">
-        <span className="loading loading-spinner loading-lg text-amber-500"></span>
-      </div>
-    );
+    return<Loading/>
 
   return (
     <div className="min-h-screen pt-24 pb-12 bg-gray-50 flex justify-center items-center px-4">

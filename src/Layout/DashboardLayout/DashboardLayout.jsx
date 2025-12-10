@@ -13,6 +13,9 @@ import {
   FaHamburger,
   FaHeart,
 } from "react-icons/fa";
+import { FiGitPullRequest } from "react-icons/fi";
+import { GiMeal } from "react-icons/gi";
+import { GiFishCooked } from "react-icons/gi";
 import {
   MdOutlinePayment,
   MdOutlineTaskAlt,
@@ -116,7 +119,7 @@ const DashBoardLayout = () => {
                 className={navLinkClasses}
                 onClick={closeSidebar}
               >
-                <MdOutlineReviews className="text-xl"/>
+                <MdOutlineReviews className="text-xl" />
                 <span>My Review</span>
               </NavLink>
               <NavLink
@@ -127,8 +130,14 @@ const DashBoardLayout = () => {
                 <FaHeart className="text-xl" />
                 <span>My Favorites</span>
               </NavLink>
-              
-
+              <NavLink
+                to="/dashboard/profile"
+                className={navLinkClasses}
+                onClick={closeSidebar}
+              >
+                <FaUser className="text-xl" />
+                <span>Profile</span>
+              </NavLink>
             </>
           )}
 
@@ -144,7 +153,7 @@ const DashBoardLayout = () => {
                 className={navLinkClasses}
                 onClick={closeSidebar}
               >
-                <FaTasks className="text-xl" />
+               <FiGitPullRequest className="text-xl"/>
                 <span>Request Order</span>
               </NavLink>
               <NavLink
@@ -152,7 +161,7 @@ const DashBoardLayout = () => {
                 className={navLinkClasses}
                 onClick={closeSidebar}
               >
-                <FaTasks className="text-xl" />
+                <GiMeal  className="text-xl"/>
                 <span>My Meals</span>
               </NavLink>
               <NavLink
@@ -160,8 +169,17 @@ const DashBoardLayout = () => {
                 className={navLinkClasses}
                 onClick={closeSidebar}
               >
-                <FaTasks className="text-xl" />
+               <GiFishCooked className="text-xl"/>
                 <span>Create Meals</span>
+              </NavLink>
+
+              <NavLink
+                to="/dashboard/profile"
+                className={navLinkClasses}
+                onClick={closeSidebar}
+              >
+                <FaUser className="text-xl" />
+                <span>Profile</span>
               </NavLink>
 
               {/* <NavLink
@@ -213,6 +231,15 @@ const DashBoardLayout = () => {
               >
                 <FaUsers className="text-xl" />
                 <span>Users Management</span>
+              </NavLink>
+
+              <NavLink
+                to="/dashboard/profile"
+                className={navLinkClasses}
+                onClick={closeSidebar}
+              >
+                <FaUser className="text-xl" />
+                <span>Profile</span>
               </NavLink>
             </>
           )}
