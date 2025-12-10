@@ -71,11 +71,7 @@ const Footer = () => {
                     <span className="w-1.5 h-1.5 bg-orange-500 rounded-full"></span> About Us
                   </Link>
                 </li>
-                <li>
-                  <Link to="/rider" className="hover:text-orange-500 transition-colors flex items-center gap-2">
-                    <span className="w-1.5 h-1.5 bg-orange-500 rounded-full"></span> Be a Chef
-                  </Link>
-                </li>
+               
               </ul>
             </div>
 
@@ -85,15 +81,15 @@ const Footer = () => {
               <ul className="space-y-4">
                 <li className="flex items-start gap-3">
                   <FaMapMarkerAlt className="text-orange-500 mt-1" />
-                  <span>123 Culinary Street, Flavor Town, FT 56789</span>
+                  <span>Dhaka, Bangladesh -1310</span>
                 </li>
                 <li className="flex items-center gap-3">
                   <FaPhoneAlt className="text-orange-500" />
-                  <span>+1 (555) 123-4567</span>
+                  <span>+880 1824225331</span>
                 </li>
                 <li className="flex items-center gap-3">
                   <FaEnvelope className="text-orange-500" />
-                  <span>support@chefcorner.com</span>
+                  <span>alifhossinsajjad123456@gmail.com</span>
                 </li>
               </ul>
             </div>
