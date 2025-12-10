@@ -5,6 +5,7 @@ import axios from "axios";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { toast } from "react-toastify";
+import { FcGoogle } from "react-icons/fc";
 import {
   FaEye,
   FaEyeSlash,
@@ -13,6 +14,7 @@ import {
   FaEnvelope,
   FaLock,
   FaMapMarkerAlt,
+  FaGoodreads,
 } from "react-icons/fa";
 import registerImg from "../../assets/banner/img1.jpg"; // Using an existing image
 
@@ -27,7 +29,7 @@ const Register = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [uploading, setUploading] = useState(false);
 
-  const { registerUser, updateUserProfile } = useAuth();
+  const { registerUser, updateUserProfile, signInGoogle } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const axiosSecure = useAxiosSecure();
@@ -42,15 +44,14 @@ const Register = () => {
     }`;
 
     try {
-      // Upload Image
       const res = await axios.post(image_API_URL, formData);
       if (res.data.success) {
         const photoURL = res.data.data.url;
 
-        // Create User in Firebase
         const result = await registerUser(data.email, data.password);
+        
+        console.log(result);
 
-        // Update Firebase Profile
         await updateUserProfile({
           displayName: data.name,
           photoURL: photoURL,
@@ -82,6 +83,23 @@ const Register = () => {
       toast.error(error.message || "Registration failed. Please try again.");
     } finally {
       setUploading(false);
+    }
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInGoogle();
+      toast.success("Google registration successful! 🎉", {
+        duration: 4000,
+        position: "top-center",
+      });
+      navigate(location?.state?.from || "/");
+    } catch (error) {
+      console.error("Google sign-in error:", error);
+      toast.error("Google registration failed. Please try again.", {
+        duration: 5000,
+        position: "top-center",
+      });
     }
   };
 
@@ -325,6 +343,15 @@ const Register = () => {
               </Link>
             </p>
           </form>
+          <div className="flex justify-center items-center mt-7">
+            <button
+              onClick={handleGoogleSignIn}
+              className="btn bg-white text-black border-[#e5e5e5]"
+            >
+              <FcGoogle />
+              Login with Google
+            </button>
+          </div>
         </div>
       </div>
     </div>
