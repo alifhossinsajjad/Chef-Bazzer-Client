@@ -80,7 +80,7 @@ const Register = () => {
       }
     } catch (error) {
       console.error(error);
-      toast.error(error.message || "Registration failed. Please try again.");
+      toast.error("Registration failed. Please try again.");
     } finally {
       setUploading(false);
     }

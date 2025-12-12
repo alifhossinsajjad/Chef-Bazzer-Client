@@ -33,7 +33,7 @@ const Login = () => {
       });
     } catch (error) {
       console.error(error);
-      toast.error(error.message || "Invalid email or password");
+      toast.error("Invalid email or password");
     } finally {
       setLoading(false);
     }
