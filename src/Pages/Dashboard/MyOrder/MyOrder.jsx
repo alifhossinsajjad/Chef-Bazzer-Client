@@ -42,6 +42,7 @@ const MyOrder = () => {
       trackingId: order.trackingId,
     };
 
+  
     try {
       const res = await axiosSecure.post(
         "/create-checkout-session",
