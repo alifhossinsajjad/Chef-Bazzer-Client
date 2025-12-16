@@ -1,4 +1,4 @@
-# 🍽️ LocalChefBazaar - Marketplace for Local Home-Cooked Meals
+# 🍽️ ChefCorner - Marketplace for Local Home-Cooked Meals
 
 [![React](https://img.shields.io/badge/Frontend-React.js-61DBFB?logo=react&logoColor=white)](https://reactjs.org/)
 [![TailwindCSS](https://img.shields.io/badge/Style-TailwindCSS-38B2AC?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
@@ -180,7 +180,7 @@ npm run dev
 # 📁 Project Structure
 ```
 text
-localchefbazaar/
+chefcorner/
 ├── client/                 # React frontend
 │   ├── public/
 │   └── src/
